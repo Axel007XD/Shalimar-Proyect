@@ -8,7 +8,7 @@ public class CalendarioVIew extends JPanel
     public CalendarioVIew(){
 
         setLayout(new BorderLayout());
-        setBackground(Color.WHITE);
+        setBackground(Color.RED);
 
 
     }

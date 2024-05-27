@@ -1,5 +1,7 @@
 package com.axel.Views;
 
+import com.axel.Controllers.ControllerLogin;
+
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 import java.awt.*;
@@ -13,13 +15,14 @@ public class Login extends JFrame {
     private JPasswordField txtPassword;
     private JButton btnLogin;
     private JPanel panel,panel2;
+    private ControllerLogin controller;
 
         public Login() {
+
             setTitle("Login");
             setSize(450,500);
             setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             setLocationRelativeTo(null);
-            //setResizable(false);
 
             panel = new JPanel(){
                 @Override

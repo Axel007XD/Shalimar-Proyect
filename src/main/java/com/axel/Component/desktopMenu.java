@@ -1,5 +1,7 @@
 package com.axel.Component;
 
+import com.axel.Controllers.ControllerWorker;
+import com.axel.Views.ViewWorker;
 import com.axel.Views.viewAddAgenda;
 import com.axel.Views.viewAddWorker;
 import com.axel.Views.viewAddPedido;
@@ -12,10 +14,15 @@ import java.awt.event.ActionListener;
 public class desktopMenu extends JDesktopPane implements ActionListener{
     private MenuPrincipal menuBar;
     private JDesktopPane desktop;
+    private viewAddAgenda vistaAgenda;
+    private viewAddWorker vistaWorker;
+    private ViewWorker vista;
+    private viewAddPedido vistaPedido;
 
     public desktopMenu() {
         setLayout(new BorderLayout());
         menuBar = new MenuPrincipal();
+
 
         add(menuBar, BorderLayout.NORTH);
 
@@ -28,9 +35,9 @@ public class desktopMenu extends JDesktopPane implements ActionListener{
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == menuBar.menuAddAgenda) {
-            viewAddAgenda vistaAgenda=new viewAddAgenda();
-
+           vistaAgenda=new viewAddAgenda();
             setLayout(null);
+
             vistaAgenda.setSize(550,500);
 
             vistaAgenda.setLocation(50,20);
@@ -40,20 +47,28 @@ public class desktopMenu extends JDesktopPane implements ActionListener{
             add(vistaAgenda);
 
         }
+
         if (e.getSource() == menuBar.menuAddTrabajador) {
-            viewAddWorker vistaWorker=new viewAddWorker();
 
-            setLayout(null);
-            vistaWorker.setSize(550,500);
+            if (vistaWorker==null){
+                vistaWorker=new viewAddWorker();
+                vista = new ViewWorker();
+                ControllerWorker controllerWorker = new ControllerWorker(vistaWorker, vista);
 
-            vistaWorker.setLocation(50,20);
+                setLayout(null);
+                vistaWorker.setSize(550,500);
 
-            setAlignmentX(CENTER_ALIGNMENT);
+                vistaWorker.setLocation(50,20);
 
-            add(vistaWorker);
+                setAlignmentX(CENTER_ALIGNMENT);
+
+                add(vistaWorker);
+
+            }
+
         }
         if (e.getSource() == menuBar.menuAddPedido) {
-            viewAddPedido vistaPedido=new viewAddPedido();
+            vistaPedido=new viewAddPedido();
 
             setLayout(null);
             vistaPedido.setSize(550,500);

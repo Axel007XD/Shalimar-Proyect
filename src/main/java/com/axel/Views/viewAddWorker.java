@@ -95,12 +95,92 @@ public class viewAddWorker extends JInternalFrame {
 
         setVisible(true);
 
-
-
-
-
+    }
+    public JButton getBtnAdd() {
+        return btnAdd;
     }
 
+    public void setBtnAdd(JButton btnAdd) {
+        this.btnAdd = btnAdd;
+    }
 
+    public JLabel getJblName() {
+        return jblName;
+    }
+
+    public void setJblName(JLabel jblName) {
+        this.jblName = jblName;
+    }
+
+    public JLabel getJlbCedula() {
+        return jlbCedula;
+    }
+
+    public void setJlbCedula(JLabel jlbCedula) {
+        this.jlbCedula = jlbCedula;
+    }
+
+    public JLabel getJlbDireccion() {
+        return jlbDireccion;
+    }
+
+    public void setJlbDireccion(JLabel jlbDireccion) {
+        this.jlbDireccion = jlbDireccion;
+    }
+
+    public JLabel getJlbOPciones() {
+        return jlbOPciones;
+    }
+
+    public void setJlbOPciones(JLabel jlbOPciones) {
+        this.jlbOPciones = jlbOPciones;
+    }
+
+    public JLabel getJlbTelefono() {
+        return jlbTelefono;
+    }
+
+    public void setJlbTelefono(JLabel jlbTelefono) {
+        this.jlbTelefono = jlbTelefono;
+    }
+
+    public JTextField getTxtCedula() {
+        return txtCedula;
+    }
+
+    public void setTxtCedula(JTextField txtCedula) {
+        this.txtCedula = txtCedula;
+    }
+
+    public JTextField getTxtDireccion() {
+        return txtDireccion;
+    }
+
+    public void setTxtDireccion(JTextField txtDireccion) {
+        this.txtDireccion = txtDireccion;
+    }
+
+    public JTextField getTxtName() {
+        return txtName;
+    }
+
+    public void setTxtName(JTextField txtName) {
+        this.txtName = txtName;
+    }
+
+    public JTextField getTxtTelefono() {
+        return txtTelefono;
+    }
+
+    public void setTxtTelefono(JTextField txtTelefono) {
+        this.txtTelefono = txtTelefono;
+    }
+
+    public void limpiarCampos(){
+        txtName.setText("");
+        txtCedula.setText("");
+        txtDireccion.setText("");
+        txtTelefono.setText("");
+    }
 
 }

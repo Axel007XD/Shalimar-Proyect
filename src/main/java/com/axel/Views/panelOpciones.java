@@ -6,6 +6,17 @@ import java.net.URL;
 
 public class panelOpciones extends JPanel {
     JLabel lblOpciones;
+    JPanel panelOPcion1;
+    JPanel opcion2;
+    JPanel opcion3;
+    JPanel opcion4;
+    JPanel opcion5;
+    JLabel imagenCalendario;
+    JLabel imagenTrabajador;
+    JLabel imagenTrabajador3;
+    JLabel imagenTrabajador4;
+    JLabel imagenTrabajador5;
+
 
     public panelOpciones() {
 
@@ -18,8 +29,6 @@ public class panelOpciones extends JPanel {
         lblOpciones.setForeground(Color.white);
         lblOpciones.setFont(new Font("Poppins", Font.BOLD,17));
         lblOpciones.setPreferredSize(new Dimension(130,40));
-
-
 
         GridBagConstraints gbc = new GridBagConstraints();
 
@@ -37,7 +46,7 @@ public class panelOpciones extends JPanel {
         add(lblOpciones,gbc);
 
         //panel Agenda
-        JPanel panelOPcion1 = new JPanel();
+        panelOPcion1 = new JPanel();
 
         panelOPcion1.setBackground(new Color(59,207,255));
         panelOPcion1.setPreferredSize(new Dimension(130,35));
@@ -64,17 +73,16 @@ public class panelOpciones extends JPanel {
 
         panelOPcion1.setLayout(new BorderLayout());
 
-        JLabel imagenCalendario=new JLabel(iconCalendario);
+        imagenCalendario=new JLabel(iconCalendario);
 
         imagenCalendario.setPreferredSize(new Dimension(35,25));
 
         panelOPcion1.add(imagenCalendario,BorderLayout.WEST);
-
         panelOPcion1.add(labelOPcion1,BorderLayout.CENTER);
 
         //Segundo panel
 
-        JPanel opcion2 = new JPanel(new BorderLayout());
+        opcion2 = new JPanel(new BorderLayout());
         opcion2.setBackground(new Color(59,207,255));
         opcion2.setPreferredSize(new Dimension(130,35));
 
@@ -96,14 +104,14 @@ public class panelOpciones extends JPanel {
         URL urlTrabajador= panelOpciones.class.getResource("/Trabajadores.png");
         ImageIcon iconTrabajador = new ImageIcon(urlTrabajador);
 
-        JLabel imagenTrabajador=new JLabel(iconTrabajador);
+        imagenTrabajador =new JLabel(iconTrabajador);
         imagenTrabajador.setPreferredSize(new Dimension(35,25));
         opcion2.add(imagenTrabajador,BorderLayout.WEST);
         opcion2.add(labelOPcion2,BorderLayout.CENTER);
 
         //Pedidos panel.
 
-        JPanel opcion3 = new JPanel(new BorderLayout());
+        opcion3 = new JPanel(new BorderLayout());
         opcion3.setBackground(new Color(59,207,255));
         opcion3.setPreferredSize(new Dimension(130,35));
 
@@ -125,14 +133,14 @@ public class panelOpciones extends JPanel {
         URL urlTrabajador3= panelOpciones.class.getResource("/Pedidos.png");
         ImageIcon iconTrabajador3 = new ImageIcon(urlTrabajador3);
 
-        JLabel imagenTrabajador3=new JLabel(iconTrabajador3);
+        imagenTrabajador3 =new JLabel(iconTrabajador3);
         imagenTrabajador3.setPreferredSize(new Dimension(35,25));
         opcion3.add(imagenTrabajador3,BorderLayout.WEST);
         opcion3.add(labelOPcion3,BorderLayout.CENTER);
 
         //Inventario
 
-        JPanel opcion4 = new JPanel(new BorderLayout());
+        opcion4 = new JPanel(new BorderLayout());
         opcion4.setBackground(new Color(59,207,255));
         opcion4.setPreferredSize(new Dimension(130,35));
 
@@ -154,14 +162,14 @@ public class panelOpciones extends JPanel {
         URL urlTrabajador4= panelOpciones.class.getResource("/Almacen.png");
         ImageIcon iconTrabajador4 = new ImageIcon(urlTrabajador4);
 
-        JLabel imagenTrabajador4=new JLabel(iconTrabajador4);
+        imagenTrabajador4 =new JLabel(iconTrabajador4);
         imagenTrabajador4.setPreferredSize(new Dimension(35,25));
         opcion4.add(imagenTrabajador4,BorderLayout.WEST);
         opcion4.add(labelOPcion4,BorderLayout.CENTER);
 
         //Historial pedidos
 
-        JPanel opcion5 = new JPanel(new BorderLayout());
+        opcion5 = new JPanel(new BorderLayout());
         opcion5.setBackground(new Color(59,207,255));
         opcion5.setPreferredSize(new Dimension(130,35));
 
@@ -183,7 +191,7 @@ public class panelOpciones extends JPanel {
         URL urlTrabajador5= panelOpciones.class.getResource("/HistorialPedidos.png");
         ImageIcon iconTrabajador5 = new ImageIcon(urlTrabajador5);
 
-        JLabel imagenTrabajador5=new JLabel(iconTrabajador5);
+        imagenTrabajador5 =new JLabel(iconTrabajador5);
         imagenTrabajador5.setPreferredSize(new Dimension(35,25));
         opcion5.add(imagenTrabajador5,BorderLayout.WEST);
         opcion5.add(labelOPcion5,BorderLayout.CENTER);
@@ -192,5 +200,91 @@ public class panelOpciones extends JPanel {
 
     }
 
+    public JLabel getImagenCalendario() {
+        return imagenCalendario;
+    }
 
+    public void setImagenCalendario(JLabel imagenCalendario) {
+        this.imagenCalendario = imagenCalendario;
+    }
+
+    public JLabel getImagenTrabajador3() {
+        return imagenTrabajador3;
+    }
+
+    public void setImagenTrabajador3(JLabel imagenTrabajador3) {
+        this.imagenTrabajador3 = imagenTrabajador3;
+    }
+
+    public JLabel getImagenTrabajador4() {
+        return imagenTrabajador4;
+    }
+
+    public void setImagenTrabajador4(JLabel imagenTrabajador4) {
+        this.imagenTrabajador4 = imagenTrabajador4;
+    }
+
+    public JLabel getImagenTrabajador5() {
+        return imagenTrabajador5;
+    }
+
+    public void setImagenTrabajador5(JLabel imagenTrabajador5) {
+        this.imagenTrabajador5 = imagenTrabajador5;
+    }
+
+    public JLabel getImagenTrabajador() {
+        return imagenTrabajador;
+    }
+
+    public void setImagenTrabajador(JLabel imagenTrabajador) {
+        this.imagenTrabajador = imagenTrabajador;
+    }
+
+    public JLabel getLblOpciones() {
+        return lblOpciones;
+    }
+
+    public void setLblOpciones(JLabel lblOpciones) {
+        this.lblOpciones = lblOpciones;
+    }
+
+    public JPanel getOpcion2() {
+        return opcion2;
+    }
+
+    public void setOpcion2(JPanel opcion2) {
+        this.opcion2 = opcion2;
+    }
+
+    public JPanel getOpcion3() {
+        return opcion3;
+    }
+
+    public void setOpcion3(JPanel opcion3) {
+        this.opcion3 = opcion3;
+    }
+
+    public JPanel getOpcion4() {
+        return opcion4;
+    }
+
+    public void setOpcion4(JPanel opcion4) {
+        this.opcion4 = opcion4;
+    }
+
+    public JPanel getOpcion5() {
+        return opcion5;
+    }
+
+    public void setOpcion5(JPanel opcion5) {
+        this.opcion5 = opcion5;
+    }
+
+    public JPanel getPanelOPcion1() {
+        return panelOPcion1;
+    }
+
+    public void setPanelOPcion1(JPanel panelOPcion1) {
+        this.panelOPcion1 = panelOPcion1;
+    }
 }

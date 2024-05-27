@@ -1,21 +1,36 @@
 package com.axel.Models;
 
-public class Trabajador {
-    private int id;
-    private String nombre;
-    private String cedula;
-    private String direccion;
-    private String telefono;
+import jakarta.persistence.*;
 
-    public Trabajador() {
+@Entity
+@Table(name = "trabajador")
+public class Trabajador {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
+    private int id;
+
+    @Column(name = "nombreCompleto")
+    private String nombreCompleto;
+
+    @Column(name = "cedula")
+    private String cedula;
+
+    @Column(name = "numeroTelefono")
+    private String numeroTelefono;
+
+    @Column(name = "direccion")
+    private String direccion;
+
+    public Trabajador () {
+
     }
 
-    public Trabajador(String cedula, String direccion, String nombre, int id, String telefono) {
+    public Trabajador(String cedula, String direccion, String nombreCompleto, String numeroTelefono) {
         this.cedula = cedula;
         this.direccion = direccion;
-        this.nombre = nombre;
-        this.id = id;
-        this.telefono = telefono;
+        this.nombreCompleto = nombreCompleto;
+        this.numeroTelefono = numeroTelefono;
     }
 
     public String getCedula() {
@@ -31,7 +46,7 @@ public class Trabajador {
     }
 
     public void setDireccion(String direccion) {
-        direccion = direccion;
+        this.direccion = direccion;
     }
 
     public int getId() {
@@ -42,19 +57,30 @@ public class Trabajador {
         this.id = id;
     }
 
-    public String getNombre() {
-        return nombre;
+    public String getNombreCompleto() {
+        return nombreCompleto;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public void setNombreCompleto(String nombreCompleto) {
+        this.nombreCompleto = nombreCompleto;
     }
 
-    public String getTelefono() {
-        return telefono;
+    public String getNumeroTelefono() {
+        return numeroTelefono;
     }
 
-    public void setTelefono(String telefono) {
-        this.telefono = telefono;
+    public void setNumeroTelefono(String numeroTelefono) {
+        this.numeroTelefono = numeroTelefono;
+    }
+
+    @Override
+    public String toString() {
+        return "Trabajador{" +
+                "cedula='" + cedula + '\'' +
+                ", id=" + id +
+                ", nombreCompleto='" + nombreCompleto + '\'' +
+                ", numeroTelefono='" + numeroTelefono + '\'' +
+                ", direccion='" + direccion + '\'' +
+                '}';
     }
 }
