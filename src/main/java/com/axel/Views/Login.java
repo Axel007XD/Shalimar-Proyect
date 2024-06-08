@@ -36,7 +36,6 @@ public class Login extends JFrame {
             };
             setContentPane(panel);
 
-
             panel2 = new JPanel();
             panel2.setPreferredSize(new Dimension(300,350));
             panel2.setOpaque(false);
@@ -130,6 +129,8 @@ public class Login extends JFrame {
 
 
             setVisible(true);
+            controller = new ControllerLogin(this);
+            setController(controller);
 
         }
 
@@ -139,6 +140,14 @@ public class Login extends JFrame {
 
     public void setBtnLogin(JButton btnLogin) {
         this.btnLogin = btnLogin;
+    }
+
+    public ControllerLogin getController() {
+        return controller;
+    }
+
+    public void setController(ControllerLogin controller) {
+        this.controller = controller;
     }
 
     public JLabel getFondoImagen() {
@@ -204,4 +213,5 @@ public class Login extends JFrame {
     public void setTxtPassword(JPasswordField txtPassword) {
         this.txtPassword = txtPassword;
     }
+
 }

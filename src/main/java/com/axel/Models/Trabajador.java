@@ -29,6 +29,7 @@ public class Trabajador {
     public Trabajador(String cedula, String direccion, String nombreCompleto, String numeroTelefono) {
         this.cedula = cedula;
         this.direccion = direccion;
+
         this.nombreCompleto = nombreCompleto;
         this.numeroTelefono = numeroTelefono;
     }

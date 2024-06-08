@@ -1,20 +1,19 @@
 package com.axel.Views;
 
+
 import com.axel.Component.MenuPrincipal;
-import com.axel.Component.desktopMenu;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 
-public class ventanaMenuPrincipal extends JFrame implements MouseListener, ActionListener {
-    ViewWorker viewWorker;
-    panelOpciones panelOpciones;
-    desktopMenu desktopMenu;
 
+public class ventanaMenuPrincipal extends JFrame{
+
+    private panelOpciones panelOpciones;
+    private MenuPrincipal menuPrincipal;
+    private JPanel panelCentro;
+    private JPanel panelMenuBar;
+    private JDesktopPane desktopPane;
 
     public ventanaMenuPrincipal() {
         setTitle("Shalimar Company");
@@ -29,62 +28,65 @@ public class ventanaMenuPrincipal extends JFrame implements MouseListener, Actio
         panelOpciones = new panelOpciones();
         add(panelOpciones, BorderLayout.WEST);
 
+        //Agregando panel para contener el menubar y desktopPanel
+        panelCentro = new JPanel();
+        panelCentro.setLayout(new BorderLayout());
+        add(panelCentro, BorderLayout.CENTER);
 
+        panelMenuBar = new JPanel();
+        panelMenuBar.setLayout(new BorderLayout());
+        menuPrincipal= new MenuPrincipal();
+        panelMenuBar.add(menuPrincipal,BorderLayout.NORTH);
+        panelCentro.add(panelMenuBar, BorderLayout.NORTH);
 
         //agregando JDestosktopPanel
-        desktopMenu = new desktopMenu();
-        add(desktopMenu);
 
-        desktopMenu.setVisible(true);
-
-        //Accciones
-
-        panelOpciones.imagenTrabajador.addMouseListener(this);
-        panelOpciones.opcion2.addMouseListener(this);
-
+        desktopPane = new JDesktopPane();
+        desktopPane.setLayout(new BorderLayout());
+        panelCentro.add(desktopPane, BorderLayout.CENTER);
         setVisible(true);
 
-    }
-
-    @Override
-    public void mouseClicked(MouseEvent e) {
-//        if(viewWorker == null){
-//
-//
-//        }
-        if (e.getSource() == panelOpciones.imagenTrabajador|| e.getSource() == panelOpciones.opcion2) {
-            viewWorker= new ViewWorker();
-            desktopMenu.add(viewWorker);
-            viewWorker.setVisible(true);
-            System.out.println("hola desde mousclick");
-        }
 
     }
 
-    @Override
-    public void mousePressed(MouseEvent e) {
 
-
+    public MenuPrincipal getMenuPrincipal() {
+        return menuPrincipal;
     }
 
-    @Override
-    public void mouseReleased(MouseEvent e) {
-
-
+    public void setMenuPrincipal(MenuPrincipal menuPrincipal) {
+        this.menuPrincipal = menuPrincipal;
     }
 
-    @Override
-    public void mouseEntered(MouseEvent e) {
-
+    public JPanel getPanelCentro() {
+        return panelCentro;
     }
 
-    @Override
-    public void mouseExited(MouseEvent e) {
-
+    public void setPanelCentro(JPanel panelCentro) {
+        this.panelCentro = panelCentro;
     }
 
-    @Override
-    public void actionPerformed(ActionEvent e) {
+    public JPanel getPanelMenuBar() {
+        return panelMenuBar;
+    }
 
+    public void setPanelMenuBar(JPanel panelMenuBar) {
+        this.panelMenuBar = panelMenuBar;
+    }
+
+    public com.axel.Views.panelOpciones getPanelOpciones() {
+        return panelOpciones;
+    }
+
+    public void setPanelOpciones(com.axel.Views.panelOpciones panelOpciones) {
+        this.panelOpciones = panelOpciones;
+    }
+
+    public JDesktopPane getDesktopPane() {
+        return desktopPane;
+    }
+
+    public void setDesktopPane(JDesktopPane desktopPane) {
+        this.desktopPane = desktopPane;
     }
 }

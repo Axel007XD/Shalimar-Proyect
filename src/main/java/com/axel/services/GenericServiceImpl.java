@@ -52,6 +52,7 @@ public class GenericServiceImpl<T> implements IGenericService<T> {
 
     @Override
     public T save(T object) {
+
         return (T) dao.save(object);
     }
     @Override

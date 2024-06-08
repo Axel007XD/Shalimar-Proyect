@@ -94,12 +94,6 @@ public class viewAddPedido extends JInternalFrame{
         gbc.insets = new Insets(20, 5, 5, 5);
         add(btnAdd, gbc);
 
-
-
-
-
-
-
         setVisible(true);
     }
 

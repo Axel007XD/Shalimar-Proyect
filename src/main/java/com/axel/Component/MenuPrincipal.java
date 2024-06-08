@@ -1,6 +1,7 @@
 package com.axel.Component;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -12,9 +13,8 @@ public class MenuPrincipal extends JMenuBar {
     JMenuItem menuAddTrabajador;
     JMenuItem menuAddPedido;
 
-
     public MenuPrincipal(){
-
+        //setLayout(new BorderLayout());
 
         menuAcciones = new JMenu("Acciones");
         menuAddAgenda = new JMenuItem("Agregar a Agenda");

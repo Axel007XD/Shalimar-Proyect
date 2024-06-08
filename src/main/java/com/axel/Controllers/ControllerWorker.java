@@ -27,8 +27,6 @@ public class ControllerWorker implements ActionListener {
     private ViewWorker vista;
 
 
-
-
     public ControllerWorker(viewAddWorker viewWorker,ViewWorker vista) {
         this.viewWorker = viewWorker;
         this.viewWorker.getBtnAdd().addActionListener(this);
@@ -55,7 +53,6 @@ public class ControllerWorker implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
 
-
         String name=viewWorker.getTxtName().getText();
         String cedula=viewWorker.getTxtCedula().getText();
         String direccion=viewWorker.getTxtDireccion().getText();
@@ -64,9 +61,7 @@ public class ControllerWorker implements ActionListener {
             System.out.println("Datos vacios");
         }else {
             trabajador = new Trabajador(name, cedula, telefono, direccion);
-
             guardarWorker(trabajador);
-            //vista.refressTable();
             viewWorker.limpiarCampos();
 
         }
@@ -97,6 +92,5 @@ public class ControllerWorker implements ActionListener {
             return 0; // La entidad no está mapeada en Hibernate
         }
     }
-
 
 }

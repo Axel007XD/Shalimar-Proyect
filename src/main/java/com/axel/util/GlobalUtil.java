@@ -9,20 +9,20 @@ import java.util.List;
 
 
 public class GlobalUtil {
-    public static Object[][] obtenerTrabajador(){
-        IGenericService<Trabajador>trabajadores= new GenericServiceImpl<>(Trabajador.class, HibernateUtil.getSessionFactory());
-        List <Trabajador> listaTrabajador = trabajadores.getAll();
-        Object[][] datos = new Object[listaTrabajador.size()][new ControllerWorker().countFieldsInTable(Trabajador.class)];
-        for (int i = 0; i < listaTrabajador.size(); i++) {
-            Trabajador trabajador = listaTrabajador.get(i);
+    public static String[][] obtenerTrabajador() {
+        IGenericService<Trabajador> trabajadores = new GenericServiceImpl<>(Trabajador.class, HibernateUtil.getSessionFactory());
+        List<Trabajador> listaTrabajador = trabajadores.getAll();
+        String[][] trabajador = new String[listaTrabajador.size()][5]; // Assuming 5 columns for worker details
 
-            datos[i][0] = trabajador.getId();
-            datos[i][1] = trabajador.getNombreCompleto();
-            datos[i][2] = trabajador.getCedula();
-            datos[i][3] = trabajador. getNumeroTelefono();
-            datos[i][4] = trabajador.getDireccion();
+        for (int i = 0; i < listaTrabajador.size(); i++) {
+            Trabajador trabajadorActual = listaTrabajador.get(i);
+            trabajador[i][0] = String.valueOf(trabajadorActual.getId());
+            trabajador[i][1] = trabajadorActual.getNombreCompleto();
+            trabajador[i][2] = trabajadorActual.getCedula();
+            trabajador[i][3] = trabajadorActual.getDireccion();
+            trabajador[i][4] = trabajadorActual.getNumeroTelefono();
         }
 
-        return datos;
+        return trabajador;
     }
 }
