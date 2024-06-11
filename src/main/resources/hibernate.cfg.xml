@@ -18,5 +18,6 @@
         <property name="hbm2ddl.auto">update</property>
         <mapping class="com.axel.Models.User" />
         <mapping class="com.axel.Models.Trabajador" />
+        <mapping class="com.axel.Models.Cliente" />
     </session-factory>
 </hibernate-configuration>

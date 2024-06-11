@@ -2,11 +2,9 @@ package com.axel.Models;
 
 import jakarta.persistence.*;
 
-
-
 @Entity
-@Table(name = "trabajador")
-public class Trabajador {
+@Table(name = "Cliente")
+public class Cliente {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
@@ -24,11 +22,11 @@ public class Trabajador {
     @Column(name = "direccion")
     private String direccion;
 
-    public Trabajador () {
+    public Cliente () {
 
     }
 
-    public Trabajador(String nombreCompleto, String cedula, String numeroTelefono, String direccion) {
+    public Cliente(String nombreCompleto, String cedula, String numeroTelefono, String direccion) {
         this.nombreCompleto = nombreCompleto;
         this.cedula = cedula;
         this.numeroTelefono = numeroTelefono;

@@ -53,6 +53,7 @@
   -->
   </dependencies>
   <build>
+    <finalName>proyetoShalimar</finalName>
     <pluginManagement>
       <plugins>
         <plugin>
@@ -70,8 +71,28 @@
             <mainClass>com.axel.App</mainClass>
           </configuration>
         </plugin>
+
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-assembly-plugin</artifactId>
+          <version>3.6.0 </version>
+          <configuration>
+            <descriptorRefs>
+              <descriptorRef>jar-with-dependencies</descriptorRef>
+            </descriptorRefs>
+            <archive>
+              <manifest>
+                <mainClass>com.axel.App</mainClass>
+              </manifest>
+            </archive>
+
+          </configuration>
+        </plugin>
+
       </plugins>
     </pluginManagement>
+
+
   </build>
 
 </project>

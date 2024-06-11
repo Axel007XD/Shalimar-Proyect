@@ -3,17 +3,17 @@ package com.axel.Views;
 import javax.swing.*;
 import java.awt.*;
 
-public class viewAddWorker extends JInternalFrame {
+public class ViewAddCliente extends JInternalFrame {
     JLabel jblName,jlbCedula,jlbDireccion,jlbTelefono, jlbOPciones;
     JTextField txtName,txtCedula,txtDireccion,txtTelefono;
     JButton btnAdd;
 
-    public viewAddWorker(){
-        super("Agregar Trabajador",true,true,true,true);
+    public ViewAddCliente(){
+        super("Agregar CLiente",true,true,true,true);
         setSize(new Dimension(500,500));
         setLayout(new GridBagLayout());
 
-        jlbOPciones=new JLabel("Agregar Trabajador");
+        jlbOPciones=new JLabel("Agregar CLiente");
         jlbOPciones.setFont(new Font("Tahoma", Font.BOLD, 19));
 
         jblName=new JLabel("Nombre completo:");

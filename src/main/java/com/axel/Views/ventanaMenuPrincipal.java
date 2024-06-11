@@ -14,6 +14,7 @@ public class ventanaMenuPrincipal extends JFrame{
     private JPanel panelCentro;
     private JPanel panelMenuBar;
     private JDesktopPane desktopPane;
+    private JPanel panelMostrarItem;
 
     public ventanaMenuPrincipal() {
         setTitle("Shalimar Company");
@@ -21,7 +22,7 @@ public class ventanaMenuPrincipal extends JFrame{
         setLocationRelativeTo(null);
         setResizable(true);
 
-        setSize(750,600);
+        setSize(1000,600);
         setLayout(new BorderLayout());
 
         //agregando panel de opciones
@@ -39,14 +40,22 @@ public class ventanaMenuPrincipal extends JFrame{
         panelMenuBar.add(menuPrincipal,BorderLayout.NORTH);
         panelCentro.add(panelMenuBar, BorderLayout.NORTH);
 
-        //agregando JDestosktopPanel
+        //agregando JDestosktopPanel a dentro de un Jpanel
+
+        //panelMostrarItem = new JPanel();
+
+//        panelMostrarItem.setLayout(new BorderLayout());
+//        panelCentro.add(panelMostrarItem, BorderLayout.CENTER);
 
         desktopPane = new JDesktopPane();
-        desktopPane.setLayout(new BorderLayout());
+        desktopPane.setOpaque(false);
         panelCentro.add(desktopPane, BorderLayout.CENTER);
+
+
+
+
+
         setVisible(true);
-
-
     }
 
 
@@ -74,11 +83,11 @@ public class ventanaMenuPrincipal extends JFrame{
         this.panelMenuBar = panelMenuBar;
     }
 
-    public com.axel.Views.panelOpciones getPanelOpciones() {
+    public panelOpciones getPanelOpciones() {
         return panelOpciones;
     }
 
-    public void setPanelOpciones(com.axel.Views.panelOpciones panelOpciones) {
+    public void setPanelOpciones(panelOpciones panelOpciones) {
         this.panelOpciones = panelOpciones;
     }
 
@@ -89,4 +98,13 @@ public class ventanaMenuPrincipal extends JFrame{
     public void setDesktopPane(JDesktopPane desktopPane) {
         this.desktopPane = desktopPane;
     }
+
+    public JPanel getPanelMostrarItem() {
+        return panelMostrarItem;
+    }
+
+    public void setPanelMostrarItem(JPanel panelMostrarItem) {
+        this.panelMostrarItem = panelMostrarItem;
+    }
+
 }

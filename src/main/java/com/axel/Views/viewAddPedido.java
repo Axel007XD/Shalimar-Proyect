@@ -11,7 +11,7 @@ public class viewAddPedido extends JInternalFrame{
     JButton btnAdd;
     public viewAddPedido() {
         super("Agregar Pedido",true,true,true,true);
-
+        setSize(new Dimension(500,500));
         setLayout(new GridBagLayout());
 
         jlbOPcion= new JLabel("Ingregar pedido:");

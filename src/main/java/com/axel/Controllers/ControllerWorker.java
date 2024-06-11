@@ -1,96 +1,245 @@
 package com.axel.Controllers;
 
+import com.axel.Component.BotonRender;
+import com.axel.Component.EditorBotones;
 import com.axel.Models.Trabajador;
 import com.axel.Views.ViewWorker;
+import com.axel.Views.ventanaMenuPrincipal;
 import com.axel.Views.viewAddWorker;
 import com.axel.services.GenericServiceImpl;
 import com.axel.services.IGenericService;
 import com.axel.util.GlobalUtil;
 import com.axel.util.HibernateUtil;
-import org.hibernate.Transaction;
-import org.hibernate.boot.Metadata;
-import org.hibernate.boot.MetadataSources;
-import org.hibernate.boot.registry.StandardServiceRegistry;
-import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
-import org.hibernate.mapping.PersistentClass;
-
-
+import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 
+import static javax.swing.JOptionPane.showInputDialog;
+
 public class ControllerWorker implements ActionListener {
-    private viewAddWorker viewWorker;
     private Trabajador trabajador;
     private List <Trabajador> trabajadores;
-    private ViewWorker vista;
+    private ViewWorker viewWorker;
+    private ventanaMenuPrincipal ventanaPrincipal;
+    private ControllerVentanaPrincipal controllerVentanaPrincipal;
+    private viewAddWorker viewAddWorker;
+    private JTable tablaTrabajadores;
+    private DefaultTableModel tablaTrabajadoresModel;
+    private JScrollPane scrollPane;
+    private BotonRender botonRender;
+    private EditorBotones editorBotones;
 
 
-    public ControllerWorker(viewAddWorker viewWorker,ViewWorker vista) {
+    public ControllerWorker(viewAddWorker viewAddWorker,ventanaMenuPrincipal ventanaPrincipal, ControllerVentanaPrincipal controlventanaPrincipal) {
+        this.viewAddWorker = viewAddWorker;
+        this.ventanaPrincipal = ventanaPrincipal;
+        this.controllerVentanaPrincipal = controlventanaPrincipal;
+        this.viewAddWorker.getBtnAdd().addActionListener(this);
+        this.editorBotones=new EditorBotones(tablaTrabajadores,this);
+        this.editorBotones.getBtnEditar().addActionListener(this);
+        createJtable();
+    }
+    public ControllerWorker(ViewWorker viewWorker){
         this.viewWorker = viewWorker;
-        this.viewWorker.getBtnAdd().addActionListener(this);
-        this.vista= vista;
-
+        createJtable();
     }
 
-    public ControllerWorker() {
-    }
-
-    private static List<Trabajador> getWorker(){
-        Transaction transaction = null;
-        List<Trabajador> trabadores= new ArrayList<>();
-        IGenericService<Trabajador> trabador= new GenericServiceImpl<>(Trabajador.class, HibernateUtil.getSessionFactory());
-        trabadores= trabador.getAll();
-        return trabadores;
-    }
     private static void guardarWorker(Trabajador trabajador){
         IGenericService<Trabajador> trabajadores = new GenericServiceImpl<>(Trabajador.class,HibernateUtil.getSessionFactory());
         trabajadores.save(trabajador);
     }
+    private static Trabajador obtenerTrabajadoresById(int id){
+        IGenericService<Trabajador>trabajadores = new GenericServiceImpl<>(Trabajador.class,HibernateUtil.getSessionFactory());
+        Trabajador trabajador1 =trabajadores.getById(id);
+        return trabajador1;
+    }
+    private static void eliminarWorker(Trabajador trabajador){
+        IGenericService<Trabajador>trabajadores = new GenericServiceImpl<>(Trabajador.class,HibernateUtil.getSessionFactory());
+        trabajadores.delete(trabajador);
+    }
+    private List<Trabajador> getWorkers(){
+        trabajadores=new ArrayList<>();
+        IGenericService<Trabajador>trabajador=new GenericServiceImpl<>(Trabajador.class,HibernateUtil.getSessionFactory());
+        trabajadores = trabajador.getAll();
+        return trabajadores;
+    }
+    private static void updateTrabajador (Trabajador trabajador){
+        IGenericService<Trabajador> studentService = new GenericServiceImpl<>(Trabajador.class, HibernateUtil.getSessionFactory());
+        studentService.update(trabajador);
+    }
+
+
 
 
     @Override
     public void actionPerformed(ActionEvent e) {
 
-        String name=viewWorker.getTxtName().getText();
-        String cedula=viewWorker.getTxtCedula().getText();
-        String direccion=viewWorker.getTxtDireccion().getText();
-        String telefono=viewWorker.getTxtTelefono().getText();
-        if (name.isEmpty() || cedula.isEmpty() || direccion.isEmpty() || telefono.isEmpty()){
-            System.out.println("Datos vacios");
-        }else {
-            trabajador = new Trabajador(name, cedula, telefono, direccion);
-            guardarWorker(trabajador);
-            viewWorker.limpiarCampos();
+        if (e.getSource()==viewAddWorker.getBtnAdd()){
+            String name=viewAddWorker.getTxtName().getText();
+            String cedula=viewAddWorker.getTxtCedula().getText();
+            String direccion=viewAddWorker.getTxtDireccion().getText();
+            String telefono=viewAddWorker.getTxtTelefono().getText();
 
+            if (name.isEmpty() || cedula.isEmpty() || direccion.isEmpty() || telefono.isEmpty()){
+                System.out.println("Datos vacios");
+            }else {
+                trabajador = new Trabajador(name, cedula, telefono, direccion);
+                guardarWorker(trabajador);
+                viewAddWorker.limpiarCampos();
+                Object[] datos = {trabajador.getId(), trabajador.getNombreCompleto(), trabajador.getCedula(), trabajador.getDireccion(), trabajador.getNumeroTelefono()};
+                tablaTrabajadoresModel.addRow(datos);
+                tablaTrabajadores.repaint();
+                //llenarCamposTabla();
+                System.out.println("Registro agregado");
+
+            }
         }
+        if (e.getSource()==editorBotones.getBtnEditar()){
+            System.out.println(editorBotones.getBtnEditar());
+        }
+
 
     }
 
-    public int countFieldsInTable(Class<Trabajador> entityClass) {
-        int count =0;
-        // Configurar la sesión de Hibernate
-        StandardServiceRegistry registry = new StandardServiceRegistryBuilder().configure().build();
-        //esto es cómo para acceder a las tablas de la base de datos
-        MetadataSources sources = new MetadataSources(registry);
-        //Este se usa para poder contruir los metadatos de la base de datos más o menos para extraer la caract
-        sources.addAnnotatedClass(entityClass);
-        //se le indica a hibernate que escanee la clase de la entiadad para generar los metadatos(saber q es esa wea)
-        Metadata metadata = sources.buildMetadata();
-        //se construllen metadatos de los metadatos proporcionados y de nuevo vuelve a scannear hibernate la clase
-        //para generar los metadatos con la informacion de la tabla
+    public void createJtable() {
 
-        // Obtener la información sobre la entidad
-        PersistentClass persistentClass = metadata.getEntityBinding(entityClass.getName());
-        //Obtiene info sobre la entidad especificada, devuelve un objeto PersistentClass que contiene metadatos de la entidad
-        if (persistentClass != null) {
-            // Contar el número de propiedades de la entidad (columnas de la tabla)
-            count=persistentClass.getPropertyClosureSpan();
-            return count+1;
-        } else {
-            return 0; // La entidad no está mapeada en Hibernate
-        }
+        String[] columnas = {"id", "Nombre", "Cedula", "Direccion", "Telefono", "Operación"};
+        String[][] datos = GlobalUtil.obtenerTrabajador();
+
+        tablaTrabajadoresModel = new DefaultTableModel(null, columnas) {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return column == 5;
+            }
+        };
+
+        tablaTrabajadores = new JTable(tablaTrabajadoresModel);
+        scrollPane = new JScrollPane(tablaTrabajadores);
+
+        botonRender= new BotonRender();
+        editorBotones=new EditorBotones(tablaTrabajadores,this);
+        tablaTrabajadores.getColumn("Operación").setCellRenderer(botonRender);
+        tablaTrabajadores.getColumn("Operación").setCellEditor(editorBotones);
+
+        editorBotones.getBtnEliminar().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+
+                    int indiceTablaX=editorBotones.getSelectedRow();
+                    if (indiceTablaX>=0 && indiceTablaX<tablaTrabajadores.getRowCount()){
+                        Object idTabla=tablaTrabajadores.getValueAt(indiceTablaX,0);
+                        System.out.println("ID: "+idTabla);
+                        if (idTabla!=null){
+                            int idTrabajador=Integer.parseInt(idTabla.toString());
+                            eliminarWorker(obtenerTrabajadoresById(idTrabajador));
+                            tablaTrabajadoresModel.removeRow(indiceTablaX);
+                            llenarCamposTabla();
+                        }else{
+                            System.out.println("El id es null");
+                        }
+                    }
+
+                }catch (Exception exception){
+                    exception.printStackTrace();
+                }
+            }
+        });
+        editorBotones.getBtnEditar().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+                try {
+
+                    int indiceTablaX=editorBotones.getSelectedRow();
+                    if (indiceTablaX>=0 && indiceTablaX<tablaTrabajadores.getRowCount()){
+                        Object idTabla=tablaTrabajadores.getValueAt(indiceTablaX,0);
+                        System.out.println("ID: "+idTabla);
+                        if (idTabla!=null){
+
+                            int idTrabajador=Integer.parseInt(idTabla.toString());
+                            Trabajador trabajador1=obtenerTrabajadoresById(idTrabajador);
+
+                            String nombre=null;
+                            String cedula=null;
+                            String direccion=null;
+                            String telefono=null;
+
+                            while (nombre == null || nombre.isEmpty()) {
+                                nombre = JOptionPane.showInputDialog("Ingresa nombre (deja vacío para mantener el actual)");
+                                if (nombre == null) {
+                                    nombre = trabajador1.getNombreCompleto();
+                                }
+                            }
+                            while (cedula == null || cedula.isEmpty()) {
+                                cedula = JOptionPane.showInputDialog("Ingresa cédula (vacío para mantener el actual)");
+                                if (cedula == null) {
+                                    cedula = trabajador1.getCedula();
+                                }
+                            }
+
+                            while (direccion == null || direccion.isEmpty()) {
+                                direccion = JOptionPane.showInputDialog("Ingresa dirección (vacío para mantener el actual)");
+                                if (direccion == null) {
+                                    direccion = trabajador1.getDireccion();
+                                }
+                            }
+
+                            while (telefono == null || telefono.isEmpty()) {
+                                telefono = JOptionPane.showInputDialog("Ingresa teléfono (vacío para mantener el actual)");
+                                if (telefono == null) {
+                                    telefono = trabajador1.getNumeroTelefono();
+                                }
+                            }
+                            trabajador1.getId();
+                            trabajador1.setNombreCompleto(nombre);
+                            trabajador1.setCedula(cedula);
+                            trabajador1.setDireccion(direccion);
+                            trabajador1.setNumeroTelefono(telefono);
+                            updateTrabajador(trabajador1);
+
+
+                            llenarCamposTabla();
+                        }else{
+                            System.out.println("El id es null");
+                        }
+                    }
+
+                }catch (Exception exception){
+                    exception.printStackTrace();
+                }
+            }
+        });
+
+        viewWorker.add(scrollPane, BorderLayout.CENTER);
+        scrollPane.setViewportView(tablaTrabajadores);
+        scrollPane.setVisible(true);
+        llenarCamposTabla();
+
     }
 
+    public void vaciarModelo(){
+        tablaTrabajadoresModel.setRowCount(0);
+    }
+    public void llenarCamposTabla(){
+        SwingUtilities.invokeLater(() -> {
+            vaciarModelo();
+            List<Trabajador> nuevosTrabajador = getWorkers();
+            for (Trabajador trabajador : nuevosTrabajador) {
+                Object[] datos = {
+                        trabajador.getId(),
+                        trabajador.getNombreCompleto(),
+                        trabajador.getCedula(),
+                        trabajador.getDireccion(),
+                        trabajador.getNumeroTelefono()
+                };
+                tablaTrabajadoresModel.addRow(datos);
+
+            }
+        });
+    }
 }

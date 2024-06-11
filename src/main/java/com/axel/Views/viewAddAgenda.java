@@ -18,7 +18,7 @@ public class viewAddAgenda extends JInternalFrame{
 
     public viewAddAgenda(){
         super("Agregar a Agenda",true,true,true,true);
-
+        setSize(new Dimension(500,500));
         setLayout(new GridBagLayout());
 
         fechaEncargo=LocalDate.now();
