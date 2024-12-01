@@ -1,13 +1,15 @@
 package com.axel.Views;
 
-import com.axel.Controllers.ControllerLogin;
+import com.axel.Controllers.ControllerUser;
 
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.net.URL;
 
-public class Login extends JFrame {
+public class Login extends JFrame implements ActionListener {
 
     private JLabel fondoImagen;
     private JLabel jlbName, jlbPassword, jlbLogin;
@@ -15,7 +17,7 @@ public class Login extends JFrame {
     private JPasswordField txtPassword;
     private JButton btnLogin;
     private JPanel panel,panel2;
-    private ControllerLogin controller;
+    private ControllerUser controlleruser;
 
         public Login() {
 
@@ -23,6 +25,7 @@ public class Login extends JFrame {
             setSize(450,500);
             setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             setLocationRelativeTo(null);
+
 
             panel = new JPanel(){
                 @Override
@@ -104,7 +107,7 @@ public class Login extends JFrame {
             c.gridx=0;
             c.gridy=2;
             c.ipadx=40;
-            c.gridwidth=0;
+            c.gridwidth=1;
             panel2.add(jlbPassword,c);
 
             c.gridx=1;
@@ -128,11 +131,34 @@ public class Login extends JFrame {
             panel.add(panel2);
 
 
+            btnLogin.addActionListener(this);
             setVisible(true);
-            controller = new ControllerLogin(this);
-            setController(controller);
+
 
         }
+    @Override
+    public void actionPerformed(ActionEvent actionEvent) {
+            if (actionEvent.getSource() == btnLogin) {
+                String username = txtName.getText();
+                String password = String.valueOf(txtPassword.getPassword());
+                if (!username.isEmpty() && !password.isEmpty()) {
+                    boolean validarUser=inicializarControladorUser().validarUser(username,password);
+                    if(validarUser){
+                        new ventanaMenuPrincipal();
+                    }
+
+                }else{
+                    JOptionPane.showMessageDialog(null, "Usuario o contraseña incorrectos");
+                }
+            }
+
+    }
+    private ControllerUser inicializarControladorUser(){
+            if (controlleruser == null){
+                controlleruser = new ControllerUser();
+            }
+            return controlleruser;
+    }
 
     public JButton getBtnLogin() {
         return btnLogin;
@@ -142,13 +168,7 @@ public class Login extends JFrame {
         this.btnLogin = btnLogin;
     }
 
-    public ControllerLogin getController() {
-        return controller;
-    }
 
-    public void setController(ControllerLogin controller) {
-        this.controller = controller;
-    }
 
     public JLabel getFondoImagen() {
         return fondoImagen;
@@ -213,5 +233,6 @@ public class Login extends JFrame {
     public void setTxtPassword(JPasswordField txtPassword) {
         this.txtPassword = txtPassword;
     }
+
 
 }

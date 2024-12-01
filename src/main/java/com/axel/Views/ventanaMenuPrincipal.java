@@ -5,11 +5,12 @@ import com.axel.Component.MenuPrincipal;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.*;
 
 
-public class ventanaMenuPrincipal extends JFrame{
+public class ventanaMenuPrincipal extends JFrame implements MouseListener {
 
-    private panelOpciones panelOpciones;
+    private panelOpciones panel_opciones;
     private MenuPrincipal menuPrincipal;
     private JPanel panelCentro;
     private JPanel panelMenuBar;
@@ -26,8 +27,8 @@ public class ventanaMenuPrincipal extends JFrame{
         setLayout(new BorderLayout());
 
         //agregando panel de opciones
-        panelOpciones = new panelOpciones();
-        add(panelOpciones, BorderLayout.WEST);
+        panel_opciones = new panelOpciones();
+        add(panel_opciones, BorderLayout.WEST);
 
         //Agregando panel para contener el menubar y desktopPanel
         panelCentro = new JPanel();
@@ -50,12 +51,18 @@ public class ventanaMenuPrincipal extends JFrame{
         desktopPane = new JDesktopPane();
         desktopPane.setOpaque(false);
         panelCentro.add(desktopPane, BorderLayout.CENTER);
-
+        panel_opciones.getPanelOPcion1().addMouseListener(this);
 
 
 
 
         setVisible(true);
+    }
+    @Override
+    public void mouseClicked(MouseEvent mouseEvent){
+        if (mouseEvent.getSource()==panel_opciones.getPanelOPcion1() ){
+
+        }
     }
 
 
@@ -83,12 +90,12 @@ public class ventanaMenuPrincipal extends JFrame{
         this.panelMenuBar = panelMenuBar;
     }
 
-    public panelOpciones getPanelOpciones() {
-        return panelOpciones;
+    public panelOpciones getPanel_opciones() {
+        return panel_opciones;
     }
 
-    public void setPanelOpciones(panelOpciones panelOpciones) {
-        this.panelOpciones = panelOpciones;
+    public void setPanel_opciones(panelOpciones panel_opciones) {
+        this.panel_opciones = panel_opciones;
     }
 
     public JDesktopPane getDesktopPane() {
@@ -107,4 +114,26 @@ public class ventanaMenuPrincipal extends JFrame{
         this.panelMostrarItem = panelMostrarItem;
     }
 
+
+
+
+    @Override
+    public void mousePressed(MouseEvent mouseEvent) {
+
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent mouseEvent) {
+
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent mouseEvent) {
+
+    }
+
+    @Override
+    public void mouseExited(MouseEvent mouseEvent) {
+
+    }
 }

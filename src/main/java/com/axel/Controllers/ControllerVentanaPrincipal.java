@@ -1,6 +1,5 @@
 package com.axel.Controllers;
 
-import com.axel.Component.MenuPrincipal;
 import com.axel.Views.ViewAddCliente;
 import com.axel.Views.ViewWorker;
 import com.axel.Views.ventanaMenuPrincipal;
@@ -28,7 +27,7 @@ public class ControllerVentanaPrincipal implements ActionListener, MouseListener
         this.ventanaPrincipal = ventanaPrincipal;
         this.ventanaPrincipal.getMenuPrincipal().getMenuAddTrabajador().addActionListener(this);
         this.ventanaPrincipal.getMenuPrincipal().getMenuAddCliente().addActionListener(this);
-        this.ventanaPrincipal.getPanelOpciones().getOpcion2().addMouseListener(this);
+        this.ventanaPrincipal.getPanel_opciones().getOpcion2().addMouseListener(this);
 
         //this.ventanaPrincipal.getPanelOpciones().getOpcion2().addMouseListener(this);
     }
@@ -86,7 +85,7 @@ public class ControllerVentanaPrincipal implements ActionListener, MouseListener
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        if (e.getSource()==ventanaPrincipal.getPanelOpciones().getOpcion2()){
+        if (e.getSource()==ventanaPrincipal.getPanel_opciones().getOpcion2()){
             if (!esVisibleJPanel(ViewWorker.class)){
     //
                  vistaTrabajador = new ViewWorker();
