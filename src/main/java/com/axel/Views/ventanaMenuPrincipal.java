@@ -16,6 +16,7 @@ public class ventanaMenuPrincipal extends JFrame implements MouseListener {
     private JPanel panelMenuBar;
     private JDesktopPane desktopPane;
     private JPanel panelMostrarItem;
+    private JPanel centro;
 
     public ventanaMenuPrincipal() {
         setTitle("Shalimar Company");
@@ -30,7 +31,6 @@ public class ventanaMenuPrincipal extends JFrame implements MouseListener {
         panel_opciones = new panelOpciones();
         add(panel_opciones, BorderLayout.WEST);
 
-        //Agregando panel para contener el menubar y desktopPanel
         panelCentro = new JPanel();
         panelCentro.setLayout(new BorderLayout());
         add(panelCentro, BorderLayout.CENTER);
@@ -41,30 +41,31 @@ public class ventanaMenuPrincipal extends JFrame implements MouseListener {
         panelMenuBar.add(menuPrincipal,BorderLayout.NORTH);
         panelCentro.add(panelMenuBar, BorderLayout.NORTH);
 
-        //agregando JDestosktopPanel a dentro de un Jpanel
 
-        //panelMostrarItem = new JPanel();
-
-//        panelMostrarItem.setLayout(new BorderLayout());
-//        panelCentro.add(panelMostrarItem, BorderLayout.CENTER);
-
+        centro = new JPanel();
+        centro.setLayout(new BorderLayout());
         desktopPane = new JDesktopPane();
         desktopPane.setOpaque(false);
-        panelCentro.add(desktopPane, BorderLayout.CENTER);
+        centro.add(desktopPane, BorderLayout.CENTER);
+        panelCentro.add(centro, BorderLayout.CENTER);
+
         panel_opciones.getPanelOPcion1().addMouseListener(this);
 
 
-
-
+        desktopPane.repaint();
         setVisible(true);
     }
     @Override
     public void mouseClicked(MouseEvent mouseEvent){
         if (mouseEvent.getSource()==panel_opciones.getPanelOPcion1() ){
+            System.out.println("hola desde mauselistener");
+            centro.removeAll();
+            centro.add(new AgendaVista(), BorderLayout.CENTER);
+            centro.revalidate();
+            centro.repaint();
 
         }
     }
-
 
     public MenuPrincipal getMenuPrincipal() {
         return menuPrincipal;
