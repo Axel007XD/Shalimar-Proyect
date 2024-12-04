@@ -13,7 +13,6 @@ public class ventanaMenuPrincipal extends JFrame implements MouseListener, Actio
     private JPanel panelCentro;
     private JPanel panelMenuBar;
     private JPanel centro;
-    private viewAddAgenda viewAddAgenda;
 
     public ventanaMenuPrincipal() {
         setTitle("Shalimar Company");
@@ -43,8 +42,8 @@ public class ventanaMenuPrincipal extends JFrame implements MouseListener, Actio
         panelCentro.add(centro, BorderLayout.CENTER);
 
         panel_opciones.getPanelOPcion1().addMouseListener(this);
-        menuPrincipal.getMenuAddAgenda().addActionListener(this);
-
+        menuPrincipal.getMenuAddProducto().addActionListener(this);
+        menuPrincipal.getMenuAddCliente().addActionListener(this);
         setVisible(true);
     }
 
@@ -53,10 +52,6 @@ public class ventanaMenuPrincipal extends JFrame implements MouseListener, Actio
         if (mouseEvent.getSource() == panel_opciones.getPanelOPcion1()) {
             System.out.println("hola desde mouseListener");
             mostrarAgendaVista();
-
-
-
-
         }
     }
 
@@ -78,10 +73,14 @@ public class ventanaMenuPrincipal extends JFrame implements MouseListener, Actio
 
     @Override
     public void actionPerformed(ActionEvent actionEvent) {
-        if (actionEvent.getSource() == menuPrincipal.getMenuAddAgenda()) {
-            System.out.println("hola desde agenda");
-            mostrarAgendaVista();
+        if (actionEvent.getSource() == menuPrincipal.getMenuAddProducto()) {
+            new ViewAddProducto();
+
         }
+        if (actionEvent.getSource()==menuPrincipal.getMenuAddCliente()){
+            new ViewAddCliente();
+        }
+
     }
 
     private void mostrarAgendaVista() {
@@ -90,12 +89,5 @@ public class ventanaMenuPrincipal extends JFrame implements MouseListener, Actio
         centro.add(agendaVista, BorderLayout.CENTER);
         centro.revalidate();
         centro.repaint();
-    }
-
-    private viewAddAgenda mostrarAgregarAgenda(){
-        if (viewAddAgenda==null){
-            viewAddAgenda = new viewAddAgenda();
-        }
-        return viewAddAgenda;
     }
 }

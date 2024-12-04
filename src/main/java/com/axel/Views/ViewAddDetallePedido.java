@@ -1,7 +1,13 @@
 package com.axel.Views;
 
+import com.axel.Controllers.ControllerProducto;
+import com.axel.Models.Producto;
+
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.List;
 
 public class ViewAddDetallePedido extends JFrame {
 
@@ -12,6 +18,9 @@ public class ViewAddDetallePedido extends JFrame {
     private JComboBox<String> metodoComboBox;
     private JButton guardarButton;
     private JButton cancelarButton;
+    private List<Producto> productoList;
+    private ControllerProducto controllerProducto;
+    private OnDetalleGuardadoListener detalleGuardadoListener; // Callback
 
     public ViewAddDetallePedido() {
         setTitle("Agregar Detalle de Pedido");
@@ -22,11 +31,11 @@ public class ViewAddDetallePedido extends JFrame {
         JPanel panel = new JPanel();
         panel.setLayout(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
-        gbc.insets = new Insets(10, 10, 10, 10); // Espaciado entre componentes
+        gbc.insets = new Insets(10, 10, 10, 10);
         gbc.fill = GridBagConstraints.HORIZONTAL;
 
         JLabel productoLabel = new JLabel("Producto:");
-        productoComboBox = new JComboBox<>(new String[]{"Producto 1", "Producto 2"});
+        productoComboBox = new JComboBox<>(new String[]{"Producto 1", "Producto 2"}); // Simulado
 
         JLabel metodoLabel = new JLabel("Método de Personalización:");
         metodoComboBox = new JComboBox<>(new String[]{"Método 1", "Método 2"});
@@ -84,6 +93,22 @@ public class ViewAddDetallePedido extends JFrame {
         guardarButton = new JButton("Guardar");
         cancelarButton = new JButton("Cancelar");
 
+        guardarButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Validar y enviar los datos al callback
+                if (detalleGuardadoListener != null) {
+                    String producto = (String) productoComboBox.getSelectedItem();
+                    String metodo = (String) metodoComboBox.getSelectedItem();
+                    int cantidad = Integer.parseInt(cantidadField.getText());
+                    String descripcion = descripcionArea.getText();
+
+                    detalleGuardadoListener.onDetalleGuardado(producto, metodo, cantidad, descripcion);
+                }
+                dispose(); // Cerrar ventana
+            }
+        });
+
         buttonPanel.add(guardarButton);
         buttonPanel.add(cancelarButton);
 
@@ -96,4 +121,11 @@ public class ViewAddDetallePedido extends JFrame {
         setVisible(true);
     }
 
+    public void setDetalleGuardadoListener(OnDetalleGuardadoListener listener) {
+        this.detalleGuardadoListener = listener;
+    }
+
+    public interface OnDetalleGuardadoListener {
+        void onDetalleGuardado(String producto, String metodo, int cantidad, String descripcion);
+    }
 }

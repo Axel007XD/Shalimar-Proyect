@@ -1,9 +1,20 @@
 package com.axel.Views;
 
+import com.axel.Controllers.ControllerProducto;
+import com.axel.Models.Producto;
+
 import javax.swing.*;
 import java.awt.*;
 
+
 public class ViewAddProducto extends JFrame {
+
+    private JTextField nombreProductoField;
+    private JComboBox<String> categoriaComboBox;
+    private JTextField tamañoField;
+    private JTextField marcaField;
+    private JTextField colorField;
+    private ControllerProducto controllerProducto;
 
     public ViewAddProducto() {
         setTitle("Registrar Producto");
@@ -18,7 +29,6 @@ public class ViewAddProducto extends JFrame {
         gbc.insets = new Insets(5, 5, 5, 5);
         gbc.fill = GridBagConstraints.HORIZONTAL;
 
-
         JLabel titleLabel = new JLabel("Agregar Producto");
         titleLabel.setFont(new Font("Arial", Font.BOLD, 18));
         titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
@@ -30,6 +40,7 @@ public class ViewAddProducto extends JFrame {
 
         gbc.gridwidth = 1;
         gbc.insets = new Insets(5, 5, 5, 5);
+
         gbc.gridx = 0;
         gbc.gridy = 1;
         JLabel nameLabel = new JLabel("Nombre:");
@@ -37,8 +48,8 @@ public class ViewAddProducto extends JFrame {
 
         gbc.gridx = 0;
         gbc.gridy = 2;
-        JTextField nombreProductoField = new JTextField();
-        nombreProductoField.setPreferredSize(new Dimension(200, 40)); // Aumentar la altura
+        nombreProductoField = new JTextField();
+        nombreProductoField.setPreferredSize(new Dimension(200, 40));
         gbc.weightx = 1.0;
         mainPanel.add(nombreProductoField, gbc);
 
@@ -50,23 +61,22 @@ public class ViewAddProducto extends JFrame {
         gbc.gridx = 0;
         gbc.gridy = 4;
         String[] tipos = {"Sublimado", "Bordado"};
-        JComboBox<String> categoriaComboBox = new JComboBox<>(tipos);
-        categoriaComboBox.setPreferredSize(new Dimension(200, 40)); // Ajustar tamaño
+        categoriaComboBox = new JComboBox<>(tipos);
+        categoriaComboBox.setPreferredSize(new Dimension(200, 40));
         gbc.weightx = 1.0;
         mainPanel.add(categoriaComboBox, gbc);
 
-        // Campo: Tamaño
         gbc.gridx = 0;
         gbc.gridy = 5;
-        JLabel tamañoLb = new JLabel("Tamaño:");
-        mainPanel.add(tamañoLb, gbc);
+        JLabel tamañoLabel = new JLabel("Tamaño:");
+        mainPanel.add(tamañoLabel, gbc);
 
         gbc.gridx = 0;
         gbc.gridy = 6;
-        JTextField tamaño = new JTextField();
-        tamaño.setPreferredSize(new Dimension(200, 40)); // Aumentar la altura
+        tamañoField = new JTextField();
+        tamañoField.setPreferredSize(new Dimension(200, 40));
         gbc.weightx = 1.0;
-        mainPanel.add(tamaño, gbc);
+        mainPanel.add(tamañoField, gbc);
 
         gbc.gridx = 0;
         gbc.gridy = 7;
@@ -75,20 +85,20 @@ public class ViewAddProducto extends JFrame {
 
         gbc.gridx = 0;
         gbc.gridy = 8;
-        JTextField marcaField = new JTextField();
-        marcaField.setPreferredSize(new Dimension(200, 40)); // Aumentar la altura
+        marcaField = new JTextField();
+        marcaField.setPreferredSize(new Dimension(200, 40));
         gbc.weightx = 1.0;
         mainPanel.add(marcaField, gbc);
 
         gbc.gridx = 0;
         gbc.gridy = 9;
-        JLabel colorLable = new JLabel("Color:");
-        mainPanel.add(colorLable, gbc);
+        JLabel colorLabel = new JLabel("Color:");
+        mainPanel.add(colorLabel, gbc);
 
         gbc.gridx = 0;
         gbc.gridy = 10;
-        JTextField colorField = new JTextField();
-        colorField.setPreferredSize(new Dimension(200, 40)); // Aumentar la altura
+        colorField = new JTextField();
+        colorField.setPreferredSize(new Dimension(200, 40));
         gbc.weightx = 1.0;
         mainPanel.add(colorField, gbc);
 
@@ -101,7 +111,7 @@ public class ViewAddProducto extends JFrame {
         JButton enviarButton = new JButton("Enviar");
         enviarButton.setBackground(Color.BLACK);
         enviarButton.setForeground(Color.WHITE);
-        enviarButton.addActionListener(e -> JOptionPane.showMessageDialog(this, "Producto registrado."));
+        enviarButton.addActionListener(e -> guardarProducto());
 
         buttonPanel.add(cancelarButton);
         buttonPanel.add(enviarButton);
@@ -112,4 +122,27 @@ public class ViewAddProducto extends JFrame {
         setVisible(true);
     }
 
+    private void guardarProducto() {
+        String nombre = nombreProductoField.getText();
+        String categoria = (String) categoriaComboBox.getSelectedItem();
+        String tamaño = tamañoField.getText();
+        String marca = marcaField.getText();
+        String color = colorField.getText();
+
+        if (nombre.isEmpty() || tamaño.isEmpty() || marca.isEmpty() || color.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Por favor completa todos los campos.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        try {
+            controllerProducto= new ControllerProducto();
+            Producto producto = new Producto(nombre,categoria,tamaño,marca,color);
+            controllerProducto.guardarProducto(producto);
+            JOptionPane.showMessageDialog(this, "Producto registrado exitosamente.");
+            dispose();
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            e.printStackTrace();
+        }
+    }
 }

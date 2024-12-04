@@ -18,11 +18,7 @@ public class BotonRender extends JPanel implements TableCellRenderer {
             table.setRowHeight(row, getPreferredSize().height);
 
         }
-//        if (isSelected){
-//            setBackground(table.getSelectionBackground());
-//        }else{
-//            setBackground(table.getBackground());
-//        }
+
         return this;
     }
 }

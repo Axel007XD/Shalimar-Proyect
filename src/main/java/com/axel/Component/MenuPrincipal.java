@@ -13,6 +13,7 @@ public class MenuPrincipal extends JMenuBar {
     JMenuItem menuAddTrabajador;
     JMenuItem menuAddPedido;
     JMenuItem menuAddCliente;
+    JMenuItem menuAddProducto;
 
     public MenuPrincipal(){
         //setLayout(new BorderLayout());
@@ -22,13 +23,23 @@ public class MenuPrincipal extends JMenuBar {
         menuAddTrabajador = new JMenuItem("Agregar a Trabajador");
         menuAddPedido = new JMenuItem("Agregar a Pedido");
         menuAddCliente = new JMenuItem("Agregar a Cliente");
+        menuAddProducto = new JMenuItem("Agregar Producto");
 
         menuAcciones.add(menuAddAgenda);
         menuAcciones.add(menuAddTrabajador);
         menuAcciones.add(menuAddPedido);
         menuAcciones.add(menuAddCliente);
+        menuAcciones.add(menuAddProducto);
         add(menuAcciones);
 
+    }
+
+    public JMenuItem getMenuAddProducto() {
+        return menuAddProducto;
+    }
+
+    public void setMenuAddProducto(JMenuItem menuAddProducto) {
+        this.menuAddProducto = menuAddProducto;
     }
 
     public JMenu getMenuAcciones() {

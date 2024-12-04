@@ -3,10 +3,12 @@ import com.toedter.calendar.JDateChooser;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ViewAddPedido extends JFrame {
+public class ViewAddPedido extends JFrame implements ActionListener {
 
     private JComboBox<String> clienteComboBox;
     private JComboBox<String> trabajadorComboBox;
@@ -17,6 +19,7 @@ public class ViewAddPedido extends JFrame {
     private JButton eliminarFilaButton;
     private JButton guardarPedidoButton;
     private JButton cancelarButton;
+    private ViewAddDetallePedido viewAddDetallePedido;
 
     public ViewAddPedido() {
         setTitle("Registrar Pedido");
@@ -89,6 +92,7 @@ public class ViewAddPedido extends JFrame {
         bottomPanel.add(cancelarButton);
 
         add(bottomPanel, BorderLayout.SOUTH);
+        agregarFilaButton.addActionListener(this);
 
         setVisible(true);
     }
@@ -119,9 +123,10 @@ public class ViewAddPedido extends JFrame {
         return detalles;
     }
 
-    // Métodos para agregar y eliminar filas en la tabla
+
     public void agregarFilaDetalle(String producto, String tipo, int cantidad, String descripcion) {
         detallesModel.addRow(new Object[]{producto, tipo, cantidad, descripcion});
+
     }
 
     public void eliminarFilaDetalle(int rowIndex) {
@@ -130,7 +135,35 @@ public class ViewAddPedido extends JFrame {
         }
     }
 
-    // Métodos para acceder a los botones
+
+    @Override
+    public void actionPerformed(ActionEvent actionEvent) {
+        if (actionEvent.getSource()==agregarFilaButton){
+            iniciarlizarDetallePedido();
+
+        }
+
+
+    }
+    private ViewAddDetallePedido iniciarlizarDetallePedido(){
+        viewAddDetallePedido = new ViewAddDetallePedido();
+
+        viewAddDetallePedido.setDetalleGuardadoListener(new ViewAddDetallePedido.OnDetalleGuardadoListener() {
+            @Override
+            public void onDetalleGuardado(String producto, String metodo, int cantidad, String descripcion) {
+                agregarFilaDetalle(producto, metodo, cantidad, descripcion);
+            }
+        });
+
+        viewAddDetallePedido.addWindowListener(new java.awt.event.WindowAdapter() {
+            @Override
+            public void windowClosing(java.awt.event.WindowEvent e) {
+                viewAddDetallePedido = null;
+            }
+        });
+
+        return viewAddDetallePedido;
+    }
     public JButton getGuardarPedidoButton() {
         return guardarPedidoButton;
     }
@@ -147,7 +180,4 @@ public class ViewAddPedido extends JFrame {
         return eliminarFilaButton;
     }
 
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(ViewAddPedido::new);
-    }
 }

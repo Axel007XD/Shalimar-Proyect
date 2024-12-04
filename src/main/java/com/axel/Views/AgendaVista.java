@@ -2,14 +2,19 @@ package com.axel.Views;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.time.LocalDate;
 import java.time.YearMonth;
 
-public class AgendaVista extends JPanel {
+public class AgendaVista extends JPanel implements ActionListener {
     private JPanel calendarioPanel;
     private JLabel mesLabel;
     private LocalDate fechaActual;
     private LocalDate fechaVisible;
+    private JButton crearPedidoButton;
+    private ViewAddPedido viewAddPedido;
+
 
     public AgendaVista() {
         setLayout(new BorderLayout());
@@ -21,7 +26,7 @@ public class AgendaVista extends JPanel {
         mesLabel = new JLabel("", SwingConstants.CENTER);
         actualizarMesLabel();
 
-        JButton crearPedidoButton = new JButton("Crear pedido");
+        crearPedidoButton = new JButton("Crear pedido");
         topPanel.add(mesLabel, BorderLayout.CENTER);
         topPanel.add(crearPedidoButton, BorderLayout.EAST);
 
@@ -41,7 +46,7 @@ public class AgendaVista extends JPanel {
         panelSuperior.add(topPanel,BorderLayout.NORTH);
         panelSuperior.add(navigationPanel, BorderLayout.SOUTH);
         add(panelSuperior, BorderLayout.NORTH);
-        add(calendarioPanel, BorderLayout.CENTER); // El calendario ocupa el espacio central
+        add(calendarioPanel, BorderLayout.CENTER);
 
         setVisible(true);
     }
@@ -95,6 +100,33 @@ public class AgendaVista extends JPanel {
 
         calendarioPanel.revalidate();
         calendarioPanel.repaint();
+        crearPedidoButton.addActionListener(this);
     }
+
+
+    @Override
+    public void actionPerformed(ActionEvent actionEvent) {
+        if (actionEvent.getSource()==crearPedidoButton){
+            inicializarPedido();
+
+
+        }
+
+    }
+
+    private ViewAddPedido inicializarPedido(){
+        if (viewAddPedido==null){
+            viewAddPedido = new ViewAddPedido();
+            viewAddPedido.addWindowListener(new java.awt.event.WindowAdapter() {
+                @Override
+                public void windowClosing(java.awt.event.WindowEvent e) {
+                    viewAddPedido = null;
+                }
+            });
+        }
+        return viewAddPedido;
+    }
+
+
 
 }

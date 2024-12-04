@@ -1,7 +1,12 @@
 package com.axel.Views;
 
+import com.axel.Controllers.ControllerCliente;
+import com.axel.Models.Cliente;
+
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class ViewAddCliente extends JFrame {
 
@@ -10,6 +15,7 @@ public class ViewAddCliente extends JFrame {
     private JTextField telefonoField;
     private JButton guardarButton;
     private JButton cancelarButton;
+    private ControllerCliente controllerCliente;
 
     public ViewAddCliente() {
         setTitle("Registrar Cliente");
@@ -19,8 +25,8 @@ public class ViewAddCliente extends JFrame {
 
         JPanel mainPanel = new JPanel(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
-        gbc.insets = new Insets(5, 5, 5, 5); // Espaciado entre los componentes
-        gbc.fill = GridBagConstraints.HORIZONTAL; // Asegura que los componentes se expandan en horizontal
+        gbc.insets = new Insets(5, 5, 5, 5);
+        gbc.fill = GridBagConstraints.HORIZONTAL;
 
         JLabel titleLabel = new JLabel("Agregar Cliente");
         titleLabel.setFont(new Font("Arial", Font.BOLD, 18));
@@ -49,7 +55,7 @@ public class ViewAddCliente extends JFrame {
         mainPanel.add(direccionLabel, gbc);
 
         direccionField = new JTextField();
-        direccionField.setPreferredSize(new Dimension(300, 40)); // Aumentar el tamaño
+        direccionField.setPreferredSize(new Dimension(300, 40));
         gbc.gridx = 1;
         mainPanel.add(direccionField, gbc);
 
@@ -60,7 +66,7 @@ public class ViewAddCliente extends JFrame {
         mainPanel.add(telefonoLabel, gbc);
 
         telefonoField = new JTextField();
-        telefonoField.setPreferredSize(new Dimension(300, 40)); // Aumentar el tamaño
+        telefonoField.setPreferredSize(new Dimension(300, 40));
         gbc.gridx = 1;
         mainPanel.add(telefonoField, gbc);
 
@@ -72,6 +78,21 @@ public class ViewAddCliente extends JFrame {
         cancelarButton.setBackground(Color.BLACK);
         cancelarButton.setForeground(Color.WHITE);
 
+        guardarButton.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                guardaCliente();
+                dispose();
+            }
+        }
+        );
+        cancelarButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                dispose();
+            }
+        });
         buttonPanel.add(guardarButton);
         buttonPanel.add(cancelarButton);
 
@@ -83,6 +104,26 @@ public class ViewAddCliente extends JFrame {
         add(mainPanel, BorderLayout.CENTER);
 
         setVisible(true);
+    }
+    private void guardaCliente(){
+        String nombre=nombreField.getText();
+        String telefono= telefonoField.getText();
+        String direccion = direccionField.getText();
+
+        if (nombre.isEmpty() || telefono.isEmpty() || direccion.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Por favor completa todos los campos.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        try {
+            controllerCliente = new ControllerCliente();
+            Cliente cliente = new Cliente();
+            controllerCliente.guardarCliente(cliente);
+
+
+        }catch (Exception e){
+            JOptionPane.showMessageDialog(this, "Error: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            e.printStackTrace();
+        }
     }
 
 }

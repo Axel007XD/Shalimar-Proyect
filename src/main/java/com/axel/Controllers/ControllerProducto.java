@@ -10,7 +10,7 @@ import java.util.List;
 
 public class ControllerProducto {
 
-    private List<Producto> getProductos() {
+    public List<Producto> getProductos() {
             IGenericService<Producto> productoGenericService= new GenericServiceImpl<>(Producto.class, HibernateUtil.getSessionFactory());
         return productoGenericService.getAll();
     }
