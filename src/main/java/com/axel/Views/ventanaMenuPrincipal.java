@@ -45,6 +45,7 @@ public class ventanaMenuPrincipal extends JFrame implements MouseListener, Actio
         menuPrincipal.getMenuAddProducto().addActionListener(this);
         menuPrincipal.getMenuAddCliente().addActionListener(this);
         menuPrincipal.getMenuAddMetodoPersonalizacion().addActionListener(this);
+        menuPrincipal.getMenuAddTrabajador().addActionListener(this);
         setVisible(true);
     }
 
@@ -83,6 +84,9 @@ public class ventanaMenuPrincipal extends JFrame implements MouseListener, Actio
         }
         if (actionEvent.getSource()==menuPrincipal.getMenuAddMetodoPersonalizacion()){
             new ViewMetodoPersonalizacion();
+        }
+        if (actionEvent.getSource()==menuPrincipal.getMenuAddTrabajador()){
+            new viewAddWorker();
         }
 
 

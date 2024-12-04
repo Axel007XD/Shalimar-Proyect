@@ -6,7 +6,7 @@ import com.axel.Models.Pedido;
 import java.util.List;
 
 @Entity
-@Table(name = "trabajadores")
+@Table(name = "trabajador")
 public class Trabajador {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -33,12 +33,11 @@ public class Trabajador {
     }
 
     // Constructor parametrizado
-    public Trabajador(String nombreCompleto, String cedula, String numeroTelefono, String direccion, List<Pedido> pedidosList) {
+    public Trabajador(String nombreCompleto, String cedula, String numeroTelefono, String direccion) {
         this.nombreCompleto = nombreCompleto;
         this.cedula = cedula;
         this.numeroTelefono = numeroTelefono;
         this.direccion = direccion;
-        this.pedidos = pedidosList;
     }
 
     // Getters y Setters

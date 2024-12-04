@@ -9,7 +9,7 @@ public class ControllerWorker {
     public ControllerWorker(){
 
     }
-    public void guardarCliente(Trabajador trabajador){
+    public void guardarTrabajador(Trabajador trabajador){
         IGenericService<Trabajador> trabajadorIGenericService = new GenericServiceImpl<>(Trabajador.class, HibernateUtil.getSessionFactory());
         trabajadorIGenericService.save(trabajador);
     }

@@ -1,15 +1,19 @@
 package com.axel.Views;
 
+import com.axel.Controllers.ControllerWorker;
+import com.axel.Models.Trabajador;
+
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-public class viewAddWorker extends JInternalFrame {
+public class viewAddWorker extends JFrame implements ActionListener {
     JLabel jblName,jlbCedula,jlbDireccion,jlbTelefono, jlbOPciones;
     JTextField txtName,txtCedula,txtDireccion,txtTelefono;
     JButton btnAdd;
 
     public viewAddWorker(){
-        super("Agregar Trabajador",true,true,true,true);
         setSize(new Dimension(500,500));
         setLayout(new GridBagLayout());
 
@@ -94,7 +98,9 @@ public class viewAddWorker extends JInternalFrame {
         gbc.insets = new Insets(20, 5, 5, 5);
         add(btnAdd, gbc);
 
+        btnAdd.addActionListener(this);
         setVisible(true);
+
 
     }
     public JButton getBtnAdd() {
@@ -185,4 +191,20 @@ public class viewAddWorker extends JInternalFrame {
     }
 
 
+    @Override
+    public void actionPerformed(ActionEvent actionEvent) {
+        if (actionEvent.getSource()==btnAdd){
+            String nombre= txtName.getText();
+            String cedula= txtCedula.getText();
+            String direccion= txtDireccion.getText();
+            String telefono =txtTelefono.getText();
+
+            Trabajador trabajador = new Trabajador(nombre,cedula,telefono,direccion);
+            ControllerWorker controllerWorker = new ControllerWorker();
+            controllerWorker.guardarTrabajador(trabajador);
+            dispose();
+
+        }
+
+    }
 }

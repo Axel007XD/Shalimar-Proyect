@@ -12,6 +12,7 @@ public class App {
         //ViewAddProducto viewAddProducto = new ViewAddProducto();
         //ViewAddPedido viewAddPedido = new ViewAddPedido();
         //ViewAddDetallePedido n = new ViewAddDetallePedido();
+
     }
 
 }
