@@ -5,7 +5,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 
-public class viewAddAgenda extends JInternalFrame{
+public class viewAddAgenda extends Frame{
 
     JLabel jlbOperacion,nameClient, NameWorker,Description,fechaEntrega,telefono,jlbAmount;
     JRadioButton fullPayment, halfPayment;
@@ -17,7 +17,6 @@ public class viewAddAgenda extends JInternalFrame{
 
 
     public viewAddAgenda(){
-        super("Agregar a Agenda",true,true,true,true);
         setSize(new Dimension(500,500));
         setLayout(new GridBagLayout());
 
@@ -149,7 +148,7 @@ public class viewAddAgenda extends JInternalFrame{
         gbc.gridwidth =1;
         gbc.insets = new Insets(20, 5, 5, 5);
         add(btnEnviar, gbc);
-
+        pack();
         setVisible(true);
 
 

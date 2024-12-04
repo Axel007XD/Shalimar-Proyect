@@ -13,6 +13,10 @@
         <property name="format_sql">true</property>
         <property name="current_session_context_class">thread</property>
         <property name="hbm2ddl.auto">update</property>
+        <mapping class="com.axel.Models.Producto"/>
+        <mapping class="com.axel.Models.Pedido"/>
+        <mapping class="com.axel.Models.DetallePedido"/>
+        <mapping class="com.axel.Models.MetodoPersonalizacion"/>
         <mapping class="com.axel.Models.User" />
         <mapping class="com.axel.Models.Trabajador"/>
         <mapping class="com.axel.Models.Cliente"/>

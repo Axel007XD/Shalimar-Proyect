@@ -11,7 +11,6 @@ public class CompraVista extends JInternalFrame {
     private JButton btnCalcular;
 
     public CompraVista() {
-        // Configuración de la ventana interna
         setTitle("Compra de Productos");
         setSize(400, 300);
         setClosable(true);
@@ -21,7 +20,6 @@ public class CompraVista extends JInternalFrame {
 
         setLayout(new GridLayout(6, 2, 10, 10));
 
-        // Etiquetas y campos
         JLabel lblProducto = new JLabel("Producto:");
         comboProductos = new JComboBox<>(new String[]{"Gorra", "Camisa", "Termo"});
 

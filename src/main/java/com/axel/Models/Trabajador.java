@@ -1,57 +1,47 @@
 package com.axel.Models;
 
 import jakarta.persistence.*;
-
-
+import java.util.ArrayList;
+import com.axel.Models.Pedido;
+import java.util.List;
 
 @Entity
-@Table(name = "trabajador")
+@Table(name = "trabajadores")
 public class Trabajador {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private int id;
 
-    @Column(name = "nombreCompleto")
+    @Column(name = "nombreCompleto", nullable = false)
     private String nombreCompleto;
 
-    @Column(name = "cedula")
+    @Column(name = "cedula", nullable = false, unique = true)
     private String cedula;
 
-    @Column(name = "numeroTelefono")
+    @Column(name = "numeroTelefono", nullable = false)
     private String numeroTelefono;
 
-    @Column(name = "direccion")
+    @Column(name = "direccion", nullable = false)
     private String direccion;
 
-    public Trabajador () {
+    @OneToMany(mappedBy = "trabajador", cascade = CascadeType.ALL)
+    private List<Pedido> pedidos;
 
+    // Constructor vacío (requerido por Hibernate)
+    public Trabajador() {
     }
 
-    public Trabajador(String nombreCompleto, String cedula, String numeroTelefono, String direccion) {
+    // Constructor parametrizado
+    public Trabajador(String nombreCompleto, String cedula, String numeroTelefono, String direccion, List<Pedido> pedidosList) {
         this.nombreCompleto = nombreCompleto;
         this.cedula = cedula;
         this.numeroTelefono = numeroTelefono;
         this.direccion = direccion;
-
+        this.pedidos = pedidosList;
     }
 
-    public String getCedula() {
-        return cedula;
-    }
-
-    public void setCedula(String cedula) {
-        this.cedula = cedula;
-    }
-
-    public String getDireccion() {
-        return direccion;
-    }
-
-    public void setDireccion(String direccion) {
-        this.direccion = direccion;
-    }
-
+    // Getters y Setters
     public int getId() {
         return id;
     }
@@ -68,6 +58,14 @@ public class Trabajador {
         this.nombreCompleto = nombreCompleto;
     }
 
+    public String getCedula() {
+        return cedula;
+    }
+
+    public void setCedula(String cedula) {
+        this.cedula = cedula;
+    }
+
     public String getNumeroTelefono() {
         return numeroTelefono;
     }
@@ -76,14 +74,12 @@ public class Trabajador {
         this.numeroTelefono = numeroTelefono;
     }
 
-    @Override
-    public String toString() {
-        return "Trabajador{" +
-                "cedula='" + cedula + '\'' +
-                ", id=" + id +
-                ", nombreCompleto='" + nombreCompleto + '\'' +
-                ", numeroTelefono='" + numeroTelefono + '\'' +
-                ", direccion='" + direccion + '\'' +
-                '}';
+    public String getDireccion() {
+        return direccion;
+    }
+
+    public void setDireccion(String direccion) {
+        this.direccion = direccion;
+
     }
 }

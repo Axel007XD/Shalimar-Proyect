@@ -1,55 +1,38 @@
 package com.axel.Models;
 
 import jakarta.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "Cliente")
 public class Cliente {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
     private int id;
 
-    @Column(name = "nombreCompleto")
     private String nombreCompleto;
 
-    @Column(name = "cedula")
-    private String cedula;
 
-    @Column(name = "numeroTelefono")
     private String numeroTelefono;
 
-    @Column(name = "direccion")
     private String direccion;
 
-    public Cliente () {
+    @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Pedido> pedidos;
 
+    // Constructor vacío
+    public Cliente() {
     }
 
-    public Cliente(String nombreCompleto, String cedula, String numeroTelefono, String direccion) {
+    // Constructor sin lista de pedidos
+    public Cliente(String nombreCompleto, String numeroTelefono, String direccion) {
         this.nombreCompleto = nombreCompleto;
-        this.cedula = cedula;
         this.numeroTelefono = numeroTelefono;
         this.direccion = direccion;
-
     }
 
-    public String getCedula() {
-        return cedula;
-    }
-
-    public void setCedula(String cedula) {
-        this.cedula = cedula;
-    }
-
-    public String getDireccion() {
-        return direccion;
-    }
-
-    public void setDireccion(String direccion) {
-        this.direccion = direccion;
-    }
-
+    // Getters y Setters
     public int getId() {
         return id;
     }
@@ -66,6 +49,8 @@ public class Cliente {
         this.nombreCompleto = nombreCompleto;
     }
 
+
+
     public String getNumeroTelefono() {
         return numeroTelefono;
     }
@@ -74,11 +59,26 @@ public class Cliente {
         this.numeroTelefono = numeroTelefono;
     }
 
+    public String getDireccion() {
+        return direccion;
+    }
+
+    public void setDireccion(String direccion) {
+        this.direccion = direccion;
+    }
+
+    public List<Pedido> getPedidos() {
+        return pedidos;
+    }
+
+    public void setPedidos(List<Pedido> pedidos) {
+        this.pedidos = pedidos;
+    }
+
     @Override
     public String toString() {
-        return "Trabajador{" +
-                "cedula='" + cedula + '\'' +
-                ", id=" + id +
+        return "Cliente{" +
+                "id=" + id +
                 ", nombreCompleto='" + nombreCompleto + '\'' +
                 ", numeroTelefono='" + numeroTelefono + '\'' +
                 ", direccion='" + direccion + '\'' +

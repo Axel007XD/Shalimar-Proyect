@@ -145,6 +145,8 @@ public class Login extends JFrame implements ActionListener {
                     boolean validarUser=inicializarControladorUser().validarUser(username,password);
                     if(validarUser){
                         new ventanaMenuPrincipal();
+                        dispose();
+
                     }
 
                 }else{

@@ -25,7 +25,6 @@ public class ControllerUser{
             guardarUser(usuario);
             usuarios=getUser();
         }
-
     }
 
     private List<User> getUser(){
@@ -37,16 +36,11 @@ public class ControllerUser{
        usuario.save(user);
     }
 
-
     public boolean validarUser(String nombre, String contrasena){
-
         for (User user : usuarios) {
             if (nombre.equals(user.getUsuario())&& contrasena.equals(user.getPassworld())) {
-                //System.out.println("HOla");
                return true;
-
             }
-
         }
         return false;
     }

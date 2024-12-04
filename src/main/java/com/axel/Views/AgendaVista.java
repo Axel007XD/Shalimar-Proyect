@@ -6,18 +6,17 @@ import java.time.LocalDate;
 import java.time.YearMonth;
 
 public class AgendaVista extends JPanel {
-    private JPanel calendarioPanel; // Panel dinámico del calendario
-    private JLabel mesLabel; // Etiqueta para el mes actual
-    private LocalDate fechaActual; // Fecha actual
-    private LocalDate fechaVisible; // Fecha del mes visible
+    private JPanel calendarioPanel;
+    private JLabel mesLabel;
+    private LocalDate fechaActual;
+    private LocalDate fechaVisible;
 
     public AgendaVista() {
         setLayout(new BorderLayout());
 
         fechaActual = LocalDate.now();
-        fechaVisible = fechaActual.withDayOfMonth(1); // Primer día del mes actual
+        fechaVisible = fechaActual.withDayOfMonth(1);
 
-        // Panel superior (Mes y botones de navegación)
         JPanel topPanel = new JPanel(new BorderLayout());
         mesLabel = new JLabel("", SwingConstants.CENTER);
         actualizarMesLabel();
@@ -26,17 +25,15 @@ public class AgendaVista extends JPanel {
         topPanel.add(mesLabel, BorderLayout.CENTER);
         topPanel.add(crearPedidoButton, BorderLayout.EAST);
 
-        // Panel de navegación (Meses)
         JPanel navigationPanel = new JPanel(new FlowLayout());
         String[] meses = {"Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ags", "Sep", "Oct", "Nov", "Dic"};
         for (int i = 0; i < meses.length; i++) {
-            int mes = i + 1; // Los meses en LocalDate comienzan en 1
+            int mes = i + 1;
             JButton mesButton = new JButton(meses[i]);
             mesButton.addActionListener(e -> cambiarMes(mes));
             navigationPanel.add(mesButton);
         }
 
-        // Panel del calendario
         calendarioPanel = new JPanel(new GridLayout(0, 7));
         actualizarCalendario();
 
@@ -61,8 +58,6 @@ public class AgendaVista extends JPanel {
 
     private void actualizarCalendario() {
         calendarioPanel.removeAll();
-
-        // Días de la semana
         String[] diasSemana = {"Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado", "Domingo"};
         for (String dia : diasSemana) {
             JLabel diaLabel = new JLabel(dia, SwingConstants.CENTER);
@@ -70,23 +65,19 @@ public class AgendaVista extends JPanel {
             calendarioPanel.add(diaLabel);
         }
 
-        // Días del mes
         YearMonth yearMonth = YearMonth.of(fechaVisible.getYear(), fechaVisible.getMonthValue());
         int diasEnMes = yearMonth.lengthOfMonth();
-        int primerDiaSemana = fechaVisible.getDayOfWeek().getValue(); // 1 = lunes, 7 = domingo
+        int primerDiaSemana = fechaVisible.getDayOfWeek().getValue();
 
-        // Espacios vacíos antes del primer día
         for (int i = 1; i < primerDiaSemana; i++) {
             calendarioPanel.add(new JLabel(""));
         }
 
-        // Días del mes con colores
         for (int dia = 1; dia <= diasEnMes; dia++) {
             LocalDate fechaDia = fechaVisible.withDayOfMonth(dia);
             JButton diaButton = new JButton(String.valueOf(dia));
             diaButton.setOpaque(true);
 
-            // Colorear según la proximidad
             long diferenciaDias = fechaDia.toEpochDay() - fechaActual.toEpochDay();
             if (diferenciaDias == -2 || diferenciaDias == -1) {
                 diaButton.setBackground(Color.RED);

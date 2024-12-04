@@ -1,22 +1,19 @@
 package com.axel.Views;
 
-
 import com.axel.Component.MenuPrincipal;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
-
-public class ventanaMenuPrincipal extends JFrame implements MouseListener {
+public class ventanaMenuPrincipal extends JFrame implements MouseListener, ActionListener {
 
     private panelOpciones panel_opciones;
     private MenuPrincipal menuPrincipal;
     private JPanel panelCentro;
     private JPanel panelMenuBar;
-    private JDesktopPane desktopPane;
-    private JPanel panelMostrarItem;
     private JPanel centro;
+    private viewAddAgenda viewAddAgenda;
 
     public ventanaMenuPrincipal() {
         setTitle("Shalimar Company");
@@ -24,10 +21,10 @@ public class ventanaMenuPrincipal extends JFrame implements MouseListener {
         setLocationRelativeTo(null);
         setResizable(true);
 
-        setSize(1000,600);
+        setSize(1000, 600);
         setLayout(new BorderLayout());
 
-        //agregando panel de opciones
+        // Agregando panel de opciones
         panel_opciones = new panelOpciones();
         add(panel_opciones, BorderLayout.WEST);
 
@@ -37,104 +34,68 @@ public class ventanaMenuPrincipal extends JFrame implements MouseListener {
 
         panelMenuBar = new JPanel();
         panelMenuBar.setLayout(new BorderLayout());
-        menuPrincipal= new MenuPrincipal();
-        panelMenuBar.add(menuPrincipal,BorderLayout.NORTH);
+        menuPrincipal = new MenuPrincipal();
+        panelMenuBar.add(menuPrincipal, BorderLayout.NORTH);
         panelCentro.add(panelMenuBar, BorderLayout.NORTH);
-
 
         centro = new JPanel();
         centro.setLayout(new BorderLayout());
-        desktopPane = new JDesktopPane();
-        desktopPane.setOpaque(false);
-        centro.add(desktopPane, BorderLayout.CENTER);
         panelCentro.add(centro, BorderLayout.CENTER);
 
         panel_opciones.getPanelOPcion1().addMouseListener(this);
+        menuPrincipal.getMenuAddAgenda().addActionListener(this);
 
-
-        desktopPane.repaint();
         setVisible(true);
     }
+
     @Override
-    public void mouseClicked(MouseEvent mouseEvent){
-        if (mouseEvent.getSource()==panel_opciones.getPanelOPcion1() ){
-            System.out.println("hola desde mauselistener");
-            centro.removeAll();
-            centro.add(new AgendaVista(), BorderLayout.CENTER);
-            centro.revalidate();
-            centro.repaint();
+    public void mouseClicked(MouseEvent mouseEvent) {
+        if (mouseEvent.getSource() == panel_opciones.getPanelOPcion1()) {
+            System.out.println("hola desde mouseListener");
+            mostrarAgendaVista();
+
+
+
 
         }
     }
 
-    public MenuPrincipal getMenuPrincipal() {
-        return menuPrincipal;
-    }
-
-    public void setMenuPrincipal(MenuPrincipal menuPrincipal) {
-        this.menuPrincipal = menuPrincipal;
-    }
-
-    public JPanel getPanelCentro() {
-        return panelCentro;
-    }
-
-    public void setPanelCentro(JPanel panelCentro) {
-        this.panelCentro = panelCentro;
-    }
-
-    public JPanel getPanelMenuBar() {
-        return panelMenuBar;
-    }
-
-    public void setPanelMenuBar(JPanel panelMenuBar) {
-        this.panelMenuBar = panelMenuBar;
-    }
-
-    public panelOpciones getPanel_opciones() {
-        return panel_opciones;
-    }
-
-    public void setPanel_opciones(panelOpciones panel_opciones) {
-        this.panel_opciones = panel_opciones;
-    }
-
-    public JDesktopPane getDesktopPane() {
-        return desktopPane;
-    }
-
-    public void setDesktopPane(JDesktopPane desktopPane) {
-        this.desktopPane = desktopPane;
-    }
-
-    public JPanel getPanelMostrarItem() {
-        return panelMostrarItem;
-    }
-
-    public void setPanelMostrarItem(JPanel panelMostrarItem) {
-        this.panelMostrarItem = panelMostrarItem;
-    }
-
-
-
-
     @Override
     public void mousePressed(MouseEvent mouseEvent) {
-
     }
 
     @Override
     public void mouseReleased(MouseEvent mouseEvent) {
-
     }
 
     @Override
     public void mouseEntered(MouseEvent mouseEvent) {
-
     }
 
     @Override
     public void mouseExited(MouseEvent mouseEvent) {
+    }
 
+    @Override
+    public void actionPerformed(ActionEvent actionEvent) {
+        if (actionEvent.getSource() == menuPrincipal.getMenuAddAgenda()) {
+            System.out.println("hola desde agenda");
+            mostrarAgendaVista();
+        }
+    }
+
+    private void mostrarAgendaVista() {
+        centro.removeAll();
+        AgendaVista agendaVista = new AgendaVista();
+        centro.add(agendaVista, BorderLayout.CENTER);
+        centro.revalidate();
+        centro.repaint();
+    }
+
+    private viewAddAgenda mostrarAgregarAgenda(){
+        if (viewAddAgenda==null){
+            viewAddAgenda = new viewAddAgenda();
+        }
+        return viewAddAgenda;
     }
 }
