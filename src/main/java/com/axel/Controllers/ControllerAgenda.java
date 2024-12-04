@@ -1,6 +1,7 @@
 package com.axel.Controllers;
 
 import com.axel.Models.DetallePedido;
+import com.axel.Models.MetodoPersonalizacion;
 import com.axel.Models.Pedido;
 import com.axel.Models.User;
 import com.axel.services.GenericServiceImpl;
@@ -30,6 +31,14 @@ public class ControllerAgenda {
     private List<Pedido> getPedidos() {
         IGenericService<Pedido> pedidoGenericService= new GenericServiceImpl<>(Pedido.class, HibernateUtil.getSessionFactory());
         return pedidoGenericService.getAll();
+    }
+    public void guardarMetodoPersonalizado(MetodoPersonalizacion metodoPersonalizacion){
+        IGenericService<MetodoPersonalizacion> metodoPersonalizacionIGenericService = new GenericServiceImpl<>(MetodoPersonalizacion.class,HibernateUtil.getSessionFactory());
+        metodoPersonalizacionIGenericService.save(metodoPersonalizacion);
+    }
+    private List<MetodoPersonalizacion> getMetodosPersonalizacion() {
+        IGenericService<MetodoPersonalizacion> metodoPersonalizacionIGenericService= new GenericServiceImpl<>(MetodoPersonalizacion.class, HibernateUtil.getSessionFactory());
+        return metodoPersonalizacionIGenericService.getAll();
     }
     public void guardarPedido(Pedido pedido){
         IGenericService<Pedido> pedidoIGenericService = new GenericServiceImpl<>(Pedido.class,HibernateUtil.getSessionFactory());

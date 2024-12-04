@@ -1,31 +1,29 @@
 package com.axel.Component;
 
 import javax.swing.*;
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 public class MenuPrincipal extends JMenuBar {
 
 
     JMenu menuAcciones;
-    JMenuItem menuAddAgenda;
+    JMenuItem menuAddMetodoPersonalizacion;
     JMenuItem menuAddTrabajador;
     JMenuItem menuAddPedido;
     JMenuItem menuAddCliente;
     JMenuItem menuAddProducto;
 
+
     public MenuPrincipal(){
         //setLayout(new BorderLayout());
 
         menuAcciones = new JMenu("Acciones");
-        menuAddAgenda = new JMenuItem("Agregar a Agenda");
+        menuAddMetodoPersonalizacion = new JMenuItem("Agregar a MetodoPersonalizacion");
         menuAddTrabajador = new JMenuItem("Agregar a Trabajador");
         menuAddPedido = new JMenuItem("Agregar a Pedido");
         menuAddCliente = new JMenuItem("Agregar a Cliente");
         menuAddProducto = new JMenuItem("Agregar Producto");
 
-        menuAcciones.add(menuAddAgenda);
+        menuAcciones.add(menuAddMetodoPersonalizacion);
         menuAcciones.add(menuAddTrabajador);
         menuAcciones.add(menuAddPedido);
         menuAcciones.add(menuAddCliente);
@@ -58,12 +56,12 @@ public class MenuPrincipal extends JMenuBar {
         this.menuAddCliente = menuAddCliente;
     }
 
-    public JMenuItem getMenuAddAgenda() {
-        return menuAddAgenda;
+    public JMenuItem getMenuAddMetodoPersonalizacion() {
+        return menuAddMetodoPersonalizacion;
     }
 
-    public void setMenuAddAgenda(JMenuItem menuAddAgenda) {
-        this.menuAddAgenda = menuAddAgenda;
+    public void setMenuAddMetodoPersonalizacion(JMenuItem menuAddMetodoPersonalizacion) {
+        this.menuAddMetodoPersonalizacion = menuAddMetodoPersonalizacion;
     }
 
     public JMenuItem getMenuAddPedido() {

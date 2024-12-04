@@ -1,6 +1,7 @@
 package com.axel.Views;
 
 import com.axel.Controllers.ControllerProducto;
+import com.axel.Models.MetodoPersonalizacion;
 import com.axel.Models.Producto;
 
 import javax.swing.*;
@@ -20,7 +21,8 @@ public class ViewAddDetallePedido extends JFrame {
     private JButton cancelarButton;
     private List<Producto> productoList;
     private ControllerProducto controllerProducto;
-    private OnDetalleGuardadoListener detalleGuardadoListener; // Callback
+    private OnDetalleGuardadoListener detalleGuardadoListener;
+    private List<MetodoPersonalizacion> metodoPersonalizacionList;
 
     public ViewAddDetallePedido() {
         setTitle("Agregar Detalle de Pedido");
@@ -35,10 +37,10 @@ public class ViewAddDetallePedido extends JFrame {
         gbc.fill = GridBagConstraints.HORIZONTAL;
 
         JLabel productoLabel = new JLabel("Producto:");
-        productoComboBox = new JComboBox<>(new String[]{"Producto 1", "Producto 2"}); // Simulado
-
+        productoComboBox = new JComboBox<>(); 
+        cargarProductos();
         JLabel metodoLabel = new JLabel("Método de Personalización:");
-        metodoComboBox = new JComboBox<>(new String[]{"Método 1", "Método 2"});
+        metodoComboBox = new JComboBox<>(new String[]{"Sublimado", ""});
 
         JLabel cantidadLabel = new JLabel("Cantidad:");
         cantidadField = new JTextField();
@@ -96,7 +98,6 @@ public class ViewAddDetallePedido extends JFrame {
         guardarButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // Validar y enviar los datos al callback
                 if (detalleGuardadoListener != null) {
                     String producto = (String) productoComboBox.getSelectedItem();
                     String metodo = (String) metodoComboBox.getSelectedItem();
@@ -105,7 +106,7 @@ public class ViewAddDetallePedido extends JFrame {
 
                     detalleGuardadoListener.onDetalleGuardado(producto, metodo, cantidad, descripcion);
                 }
-                dispose(); // Cerrar ventana
+                dispose();
             }
         });
 
@@ -119,6 +120,15 @@ public class ViewAddDetallePedido extends JFrame {
 
         add(panel, BorderLayout.CENTER);
         setVisible(true);
+    }
+
+    private void cargarProductos() {
+        controllerProducto = new ControllerProducto();
+        productoList = controllerProducto.getProductos();
+        for (Producto producto: productoList){
+            productoComboBox.addItem(producto.getNombre());
+        }
+
     }
 
     public void setDetalleGuardadoListener(OnDetalleGuardadoListener listener) {
