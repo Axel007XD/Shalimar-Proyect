@@ -5,6 +5,8 @@ import com.axel.services.GenericServiceImpl;
 import com.axel.services.IGenericService;
 import com.axel.util.HibernateUtil;
 
+import java.util.List;
+
 public class ControllerCliente{
     public ControllerCliente(){
 
@@ -20,6 +22,10 @@ public class ControllerCliente{
     public void editarCliente(Cliente cliente){
         IGenericService<Cliente> clientes = new GenericServiceImpl<>(Cliente.class, HibernateUtil.getSessionFactory());
         clientes.update(cliente);
+    }
+    public List<Cliente> getClientes() {
+        IGenericService<Cliente> clienteIGenericService= new GenericServiceImpl<>(Cliente.class, HibernateUtil.getSessionFactory());
+        return clienteIGenericService.getAll();
     }
 
 

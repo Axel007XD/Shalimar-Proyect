@@ -45,7 +45,7 @@ public class ViewMetodoPersonalizacion extends JFrame {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 controllerAgenda = new ControllerAgenda();
-                String nombre= nombreLabel.getText();
+                String nombre= nombreField.getText();
                 MetodoPersonalizacion metodoPersonalizacion = new MetodoPersonalizacion(nombre);
                 controllerAgenda.guardarMetodoPersonalizado(metodoPersonalizacion);
                 dispose();

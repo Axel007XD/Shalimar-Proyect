@@ -116,7 +116,8 @@ public class ViewAddCliente extends JFrame {
         }
         try {
             controllerCliente = new ControllerCliente();
-            Cliente cliente = new Cliente();
+
+            Cliente cliente = new Cliente(nombre,telefono,direccion);
             controllerCliente.guardarCliente(cliente);
 
 

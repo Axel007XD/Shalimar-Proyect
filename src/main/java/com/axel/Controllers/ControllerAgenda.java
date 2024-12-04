@@ -19,7 +19,7 @@ public class ControllerAgenda {
 
     }
 
-    private List<DetallePedido> getDetallePedidos() {
+    public List<DetallePedido> getDetallePedidos() {
         IGenericService<DetallePedido> detallePedido= new GenericServiceImpl<>(DetallePedido.class, HibernateUtil.getSessionFactory());
         return detallePedido.getAll();
     }
@@ -28,7 +28,7 @@ public class ControllerAgenda {
         detallePedidoIGenericService.save(detallePedido);
     }
 
-    private List<Pedido> getPedidos() {
+    public List<Pedido> getPedidos() {
         IGenericService<Pedido> pedidoGenericService= new GenericServiceImpl<>(Pedido.class, HibernateUtil.getSessionFactory());
         return pedidoGenericService.getAll();
     }
@@ -36,7 +36,7 @@ public class ControllerAgenda {
         IGenericService<MetodoPersonalizacion> metodoPersonalizacionIGenericService = new GenericServiceImpl<>(MetodoPersonalizacion.class,HibernateUtil.getSessionFactory());
         metodoPersonalizacionIGenericService.save(metodoPersonalizacion);
     }
-    private List<MetodoPersonalizacion> getMetodosPersonalizacion() {
+    public List<MetodoPersonalizacion> getMetodosPersonalizacion() {
         IGenericService<MetodoPersonalizacion> metodoPersonalizacionIGenericService= new GenericServiceImpl<>(MetodoPersonalizacion.class, HibernateUtil.getSessionFactory());
         return metodoPersonalizacionIGenericService.getAll();
     }

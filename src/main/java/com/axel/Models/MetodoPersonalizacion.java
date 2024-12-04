@@ -38,9 +38,6 @@ public class MetodoPersonalizacion {
 
     @Override
     public String toString() {
-        return "MetodoPersonalizacion{" +
-                "id=" + id +
-                ", nombre='" + nombre + '\'' +
-                '}';
+        return this.nombre;
     }
 }

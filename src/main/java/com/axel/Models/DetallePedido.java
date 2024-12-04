@@ -95,6 +95,7 @@ public class DetallePedido {
         this.descripcion = descripcion;
     }
 
+
     @Override
     public String toString() {
         return "DetallePedido{" +

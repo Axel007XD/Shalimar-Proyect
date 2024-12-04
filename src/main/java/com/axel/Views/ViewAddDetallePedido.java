@@ -1,5 +1,6 @@
 package com.axel.Views;
 
+import com.axel.Controllers.ControllerAgenda;
 import com.axel.Controllers.ControllerProducto;
 import com.axel.Models.MetodoPersonalizacion;
 import com.axel.Models.Producto;
@@ -15,14 +16,15 @@ public class ViewAddDetallePedido extends JFrame {
     private JTextField cantidadField;
     private JTextField precioField;
     private JTextArea descripcionArea;
-    private JComboBox<String> productoComboBox;
-    private JComboBox<String> metodoComboBox;
+    private JComboBox<Producto> productoComboBox;
+    private JComboBox<MetodoPersonalizacion> metodoComboBox;
     private JButton guardarButton;
     private JButton cancelarButton;
     private List<Producto> productoList;
     private ControllerProducto controllerProducto;
     private OnDetalleGuardadoListener detalleGuardadoListener;
     private List<MetodoPersonalizacion> metodoPersonalizacionList;
+    private ControllerAgenda controllerAgenda;
 
     public ViewAddDetallePedido() {
         setTitle("Agregar Detalle de Pedido");
@@ -37,10 +39,12 @@ public class ViewAddDetallePedido extends JFrame {
         gbc.fill = GridBagConstraints.HORIZONTAL;
 
         JLabel productoLabel = new JLabel("Producto:");
-        productoComboBox = new JComboBox<>(); 
+        productoComboBox = new JComboBox<Producto>();
         cargarProductos();
+
         JLabel metodoLabel = new JLabel("Método de Personalización:");
-        metodoComboBox = new JComboBox<>(new String[]{"Sublimado", ""});
+        metodoComboBox = new JComboBox<MetodoPersonalizacion>();
+        cargarMetodosPersonalizacion();
 
         JLabel cantidadLabel = new JLabel("Cantidad:");
         cantidadField = new JTextField();
@@ -99,12 +103,15 @@ public class ViewAddDetallePedido extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (detalleGuardadoListener != null) {
-                    String producto = (String) productoComboBox.getSelectedItem();
-                    String metodo = (String) metodoComboBox.getSelectedItem();
+                    Producto productoSeleccionado = (Producto) productoComboBox.getSelectedItem();
+                    MetodoPersonalizacion metodo = (MetodoPersonalizacion) metodoComboBox.getSelectedItem();
                     int cantidad = Integer.parseInt(cantidadField.getText());
+                    int precio = Integer.parseInt(precioField.getText());
                     String descripcion = descripcionArea.getText();
 
-                    detalleGuardadoListener.onDetalleGuardado(producto, metodo, cantidad, descripcion);
+                    detalleGuardadoListener.onDetalleGuardado(productoSeleccionado, metodo, cantidad,precio, descripcion);
+
+
                 }
                 dispose();
             }
@@ -125,10 +132,17 @@ public class ViewAddDetallePedido extends JFrame {
     private void cargarProductos() {
         controllerProducto = new ControllerProducto();
         productoList = controllerProducto.getProductos();
-        for (Producto producto: productoList){
-            productoComboBox.addItem(producto.getNombre());
+        for (Producto producto : productoList) {
+            productoComboBox.addItem(producto);
         }
+    }
 
+    private void cargarMetodosPersonalizacion(){
+        controllerAgenda = new ControllerAgenda();
+        metodoPersonalizacionList = controllerAgenda.getMetodosPersonalizacion();
+        for (MetodoPersonalizacion metodoP : metodoPersonalizacionList){
+            metodoComboBox.addItem(metodoP);
+        }
     }
 
     public void setDetalleGuardadoListener(OnDetalleGuardadoListener listener) {
@@ -136,6 +150,6 @@ public class ViewAddDetallePedido extends JFrame {
     }
 
     public interface OnDetalleGuardadoListener {
-        void onDetalleGuardado(String producto, String metodo, int cantidad, String descripcion);
+        void onDetalleGuardado(Producto producto, MetodoPersonalizacion metodo, int cantidad,int precio, String descripcion);
     }
 }

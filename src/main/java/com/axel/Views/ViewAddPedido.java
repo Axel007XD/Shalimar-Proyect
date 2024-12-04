@@ -1,11 +1,13 @@
 package com.axel.Views;
+import com.axel.Controllers.ControllerCliente;
+import com.axel.Controllers.ControllerWorker;
+import com.axel.Models.*;
 import com.toedter.calendar.JDateChooser;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 import java.util.List;
 
 public class ViewAddPedido extends JFrame implements ActionListener {
@@ -20,6 +22,11 @@ public class ViewAddPedido extends JFrame implements ActionListener {
     private JButton guardarPedidoButton;
     private JButton cancelarButton;
     private ViewAddDetallePedido viewAddDetallePedido;
+    private List<DetallePedido> detallePedidoList;
+    private ControllerCliente controllerCliente;
+    private List<Cliente> clienteList;
+    private ControllerWorker controllerWorker;
+    private  List<Trabajador> trabajadorList;
 
     public ViewAddPedido() {
         setTitle("Registrar Pedido");
@@ -35,9 +42,13 @@ public class ViewAddPedido extends JFrame implements ActionListener {
         gbc.fill = GridBagConstraints.HORIZONTAL;
 
         JLabel clienteLabel = new JLabel("Cliente:");
-        clienteComboBox = new JComboBox<>(new String[]{"Cliente 1", "Cliente 2"});
+        clienteComboBox = new JComboBox<>();
+        cargarClientes();
+
         JLabel trabajadorLabel = new JLabel("Trabajador:");
-        trabajadorComboBox = new JComboBox<>(new String[]{"Trabajador 1", "Trabajador 2"});
+        trabajadorComboBox = new JComboBox<>();
+        cargarTrabajador();
+
         JLabel fechaPedidoLabel = new JLabel("Fecha de Pedido:");
         fechaPedidoChooser = new JDateChooser();
 
@@ -97,33 +108,6 @@ public class ViewAddPedido extends JFrame implements ActionListener {
         setVisible(true);
     }
 
-    // Métodos para obtener los datos de la interfaz gráfica
-
-    public String getClienteSeleccionado() {
-        return (String) clienteComboBox.getSelectedItem();
-    }
-
-    public String getTrabajadorSeleccionado() {
-        return (String) trabajadorComboBox.getSelectedItem();
-    }
-
-    public java.util.Date getFechaPedido() {
-        return fechaPedidoChooser.getDate();
-    }
-
-    public List<Object[]> getDetallesPedido() {
-        List<Object[]> detalles = new ArrayList<>();
-        for (int i = 0; i < detallesModel.getRowCount(); i++) {
-            Object[] fila = new Object[detallesModel.getColumnCount()];
-            for (int j = 0; j < detallesModel.getColumnCount(); j++) {
-                fila[j] = detallesModel.getValueAt(i, j);
-            }
-            detalles.add(fila);
-        }
-        return detalles;
-    }
-
-
     public void agregarFilaDetalle(String producto, String tipo, int cantidad, String descripcion) {
         detallesModel.addRow(new Object[]{producto, tipo, cantidad, descripcion});
 
@@ -135,7 +119,6 @@ public class ViewAddPedido extends JFrame implements ActionListener {
         }
     }
 
-
     @Override
     public void actionPerformed(ActionEvent actionEvent) {
         if (actionEvent.getSource()==agregarFilaButton){
@@ -143,41 +126,42 @@ public class ViewAddPedido extends JFrame implements ActionListener {
 
         }
 
-
     }
     private ViewAddDetallePedido iniciarlizarDetallePedido(){
         viewAddDetallePedido = new ViewAddDetallePedido();
 
         viewAddDetallePedido.setDetalleGuardadoListener(new ViewAddDetallePedido.OnDetalleGuardadoListener() {
             @Override
-            public void onDetalleGuardado(String producto, String metodo, int cantidad, String descripcion) {
-                agregarFilaDetalle(producto, metodo, cantidad, descripcion);
+            public void onDetalleGuardado(Producto producto, MetodoPersonalizacion metodo, int cantidad,int precio, String descripcion) {
+                String nombreProducto= (String) producto.getNombre();
+                String nombreMetodo= (String) metodo.getNombre();
+
+                agregarFilaDetalle(nombreProducto, nombreMetodo, cantidad, descripcion);
             }
         });
-
         viewAddDetallePedido.addWindowListener(new java.awt.event.WindowAdapter() {
             @Override
             public void windowClosing(java.awt.event.WindowEvent e) {
                 viewAddDetallePedido = null;
             }
         });
-
         return viewAddDetallePedido;
     }
-    public JButton getGuardarPedidoButton() {
-        return guardarPedidoButton;
+
+    private void cargarClientes(){
+        controllerCliente = new ControllerCliente();
+        clienteList = controllerCliente.getClientes();
+        for (Cliente cliente : clienteList){
+            clienteComboBox.addItem(cliente.getNombreCompleto());
+        }
+    }
+    private void cargarTrabajador(){
+        controllerWorker = new ControllerWorker();
+        trabajadorList = controllerWorker.getTrabajador();
+        for (Trabajador trabajador : trabajadorList){
+            trabajadorComboBox.addItem(trabajador.getNombreCompleto());
+        }
     }
 
-    public JButton getCancelarButton() {
-        return cancelarButton;
-    }
-
-    public JButton getAgregarFilaButton() {
-        return agregarFilaButton;
-    }
-
-    public JButton getEliminarFilaButton() {
-        return eliminarFilaButton;
-    }
 
 }

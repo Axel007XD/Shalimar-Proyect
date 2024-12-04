@@ -57,9 +57,6 @@ public class Producto {
         this.tipo = tipo;
     }
 
-    public String getNombre() {
-        return nombre;
-    }
 
     public void setNombre(String nombre) {
         this.nombre = nombre;
@@ -79,5 +76,14 @@ public class Producto {
 
     public void setColor(String color) {
         this.color = color;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    @Override
+    public String toString() {
+        return this.nombre;
     }
 }
